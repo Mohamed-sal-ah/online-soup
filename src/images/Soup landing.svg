@@ -1,0 +1,43 @@
+<svg width="264" height="265" viewBox="0 0 264 265" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="soup-landing">
+<g id="spoon">
+<path id="Vector" d="M16.599 88.2112C37.6628 104.393 46.7694 115.343 57.1103 126.111C65.0065 134.334 70.3962 139.944 81.9243 151.956C89.4032 159.739 81.6938 175.68 101.137 195.937C114.954 210.32 139.184 214.173 141.926 203.983C144.667 193.793 139.973 176.081 127.511 163.11C108.062 142.867 96.2772 149.75 88.7977 141.958C77.2659 129.955 71.8783 124.342 63.984 116.117C53.643 105.348 47.2684 99.8637 30.8191 76.9845C22.6875 65.6564 11.2983 51.7465 3.58574 62.9544C-4.12095 74.1539 6.17611 80.2129 16.599 88.2112ZM96.6504 159.878C98.992 156.469 101.932 155.241 106.067 154.948C106.471 155.035 106.863 155.108 107.273 155.195C98.513 171.127 101.605 183.268 114.787 200.782C109.512 198.328 106.759 195.967 102.428 191.481C94.5342 183.261 94.7263 181.039 93.3388 173.53C92.412 168.493 94.2966 163.298 96.6504 159.878Z" fill="black"/>
+</g>
+<g id="soup">
+<path id="soppa" d="M31.0001 158H260C260 158 224.032 213.141 212.034 223.448C205.789 228.813 172.39 242 141.613 242C110.836 242 83.6508 232.317 73.2779 219.325C58.7382 201.114 31.0001 158 31.0001 158Z" fill="url(#paint0_diamond)"/>
+<path id="Vector_2" d="M215.689 195.887C218.563 191.269 218.394 188.326 216.384 185.528C216.043 185.363 215.729 185.192 215.385 185.023C208.218 202.007 190.459 212.329 154.656 223.08C160.722 224.004 169.216 221.118 177.254 219.565C191.064 214.228 192.923 213.197 200.097 209.944C204.377 207.238 212.808 200.523 215.689 195.887Z" fill="url(#paint1_radial)"/>
+</g>
+<g id="bowl">
+<g id="sk&#195;&#165;lskugga3" filter="url(#filter0_d)">
+<rect x="97.5" y="234" width="93" height="15" rx="5" fill="black"/>
+</g>
+<g id="Ellipse 14">
+<mask id="path-5-inside-1" fill="white">
+<path d="M264 128.5C264 194.498 210.498 248 144.5 248C78.5021 248 25.0001 194.498 25.0001 128.5C25.0001 86.5 25.0001 110 151 110C264 110 264 87 264 128.5Z"/>
+</mask>
+<path d="M264 128.5C264 194.498 210.498 248 144.5 248C78.5021 248 25.0001 194.498 25.0001 128.5C25.0001 86.5 25.0001 110 151 110C264 110 264 87 264 128.5Z" stroke="black" stroke-width="28" mask="url(#path-5-inside-1)"/>
+</g>
+<path id="Vector 6" d="M105.023 97C77.019 80.1275 127.86 29.6357 107.023 5M148.023 97C120.019 80.1275 170.86 29.6357 150.023 5M189.023 97C161.019 80.1275 211.86 29.6357 191.023 5" stroke="black" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d" x="87.5" y="230" width="113" height="35" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="6"/>
+<feGaussianBlur stdDeviation="5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<radialGradient id="paint0_diamond" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(145.5 200) rotate(90) scale(42 114.5)">
+<stop stop-color="#F29768" stop-opacity="0.81"/>
+<stop offset="1" stop-color="#EDBAA0"/>
+</radialGradient>
+<radialGradient id="paint1_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(187.751 211.246) rotate(-15.706) scale(40.2762 9.00395)">
+<stop stop-color="#E3E2E2"/>
+<stop offset="0.0001" stop-color="#FFCEB5"/>
+<stop offset="1" stop-color="#EEC8B4"/>
+</radialGradient>
+</defs>
+</svg>

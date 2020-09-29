@@ -1,0 +1,6 @@
+export const fetch_menue = "FETCH"
+export const Signed_in = "SIGNED_IN"
+export const Signed_out = "SIGNED_OUT"
+export const Add_to_Cart = "ADD_TO_CART"
+export const Change_Cart_Content = "CHANGE_CART_CONTENT"
+export const Remove_from_Cart = "REMOVE_FROM_CART"
