@@ -1,15 +1,15 @@
 import React from 'react';
 
 import { AuthUserContext, withAuthorization } from '../Session';
-import Account from './account';
+import UserPayPage from './userPay';
 
-const AccountPage = () => (
+const UserPay = () => (
     <>
         <AuthUserContext.Consumer>
             {authUser => (
                 <>
                     {authUser !== 'loading' ?
-                        <Account authUser={authUser} /> :
+                        <UserPayPage authUser={authUser} /> :
                         <p>Loading...</p>
                     }
 
@@ -21,4 +21,4 @@ const AccountPage = () => (
 
 );
 const condition = authUser => !!authUser;
-export default withAuthorization(condition)(AccountPage);
+export default withAuthorization(condition)(UserPay);

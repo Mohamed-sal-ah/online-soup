@@ -7,6 +7,7 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case Signed_in:
+            localStorage.removeItem("guest")
             return {
                 ...state,
                 user: action.payload

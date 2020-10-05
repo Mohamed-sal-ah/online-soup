@@ -1,4 +1,4 @@
-import { Add_to_Cart, Change_Cart_Content, Remove_from_Cart } from './type'
+import { Add_to_Cart, Change_Cart_Content, Load_Cart, Remove_from_Cart, Clear_Cart } from './type'
 
 export const AddToCart = (data) => dispatch => {
     dispatch({
@@ -18,5 +18,18 @@ export const RemoveCart = (id) => dispatch => {
     dispatch({
         type: Remove_from_Cart,
         payload: id
+    })
+}
+
+export const LoadCart = (data) => dispatch => {
+    dispatch({
+        type: Load_Cart,
+        payload: data
+    })
+}
+export const ClearCart = () => dispatch => {
+    dispatch({
+        type: Clear_Cart,
+        payload: null
     })
 }

@@ -34,7 +34,7 @@ class SignUpFormBase extends Component {
             .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
                 // Create a user in your Firebase realtime database
-                const createDate = this.props.firebase.serverValue.TIMESTAMP;
+                const createdDate = this.props.firebase.serverValue.TIMESTAMP;
                 const userID = authUser.user.uid;
                 return this.props.firebase
                     .user(authUser.user.uid)
@@ -42,7 +42,7 @@ class SignUpFormBase extends Component {
                         username,
                         email,
                         adress,
-                        createDate,
+                        createdDate,
                         userID
                     });
             })

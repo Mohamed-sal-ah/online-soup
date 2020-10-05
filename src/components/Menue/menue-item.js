@@ -1,17 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { SELECT_SOUP, INFO_SOUP } from '../../constants/routes'
 
-const MenueItem = ({ item, id, onTest }) => {
+const MenueItem = ({ item, id, allCart }) => {
+    let numbers = 0;
+    allCart.forEach(cart => {
+        if (cart.name === item.name) {
+            numbers++
+        }
+    });
     return (
         <li>
             <h3>{item.name}</h3>
+            {numbers > 0 ? <h3>{numbers}</h3> : null}
             <h6>{item.description}</h6>
             <h3>{item.price}-:</h3>
             {/* <img alt="bild på soppan" src="https://placeimg.com/300/300/nature" /> */}
-            <button onClick={() => onTest(id)} >TestRoute</button>
-            <Link to={INFO_SOUP}>info</Link>
-            <Link to={SELECT_SOUP}>Link to add</Link>
+            <Link to={`/info/${id}`}>info</Link>
+            <Link to={`/select/${id}`}>Link to add</Link>
         </li>
     )
 }

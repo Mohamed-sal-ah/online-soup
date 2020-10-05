@@ -24,4 +24,5 @@ yarn-error.log*
 
 example.json
 feedback.txt
+feedbackAnswer.txt
 /src/components/Firebase/firebase.js

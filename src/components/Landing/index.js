@@ -8,9 +8,7 @@ const LandingPage = () => {
     return (
         <div>
             <h1>Online Soup</h1>
-            <Link to={ROUTE.MENUE}>To soups</Link>
-            <Link to={ROUTE.SIGN_IN}>Sign in</Link>
-            <Link to={ROUTE.SIGN_UP}>Sign up</Link>
+            <Link to={ROUTE.USER_STATUS}>To soups</Link>
             <Soup />
         </div>
     )
