@@ -57,6 +57,7 @@ export class UserPayPage extends Component {
         localStorage.removeItem('cart')
         localStorage.removeItem('order')
         this.props.firebase.userOrder(this.props.user.userID).push(keyID.key)
+        this.props.history.push(DELIVERY_STATUS)
     }
 
     userFriendSentPay = (numID, message) => {

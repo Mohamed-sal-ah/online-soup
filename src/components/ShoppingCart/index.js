@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from "react-router-dom";
 import { LoadCart, ClearCart, RemoveCart } from '../../action/cartAction';
 import { LoadOrder } from '../../action/orderAction';
-import { MENUE, PAY_PAGE } from '../../constants/routes';
+import { MENUE, PAY_PAGE, USER_PAY } from '../../constants/routes';
 
 class ShoppingCart extends Component {
     constructor(props) {
@@ -15,6 +15,7 @@ class ShoppingCart extends Component {
             deliveryCost: 20,
             allSoupCost: 0,
             totalPrice: 0,
+            isUser: false
         }
     }
 
@@ -22,22 +23,27 @@ class ShoppingCart extends Component {
         const propsCart = this.props.cart
         let total = this.state.totalPrice
         let SoupCost = this.state.allSoupCost
+        debugger
         console.log(propsCart.length);
+        if (this.props.user !== null) {
+            console.log(this.props.user);
+            this.setState({ isUser: true })
+        }
         const localCart = JSON.parse(localStorage.getItem('cart'))
         if (propsCart.length === 0 && localCart === null) {
             this.props.history.push(MENUE)
         } else {
             if (propsCart.length > 0) {
                 propsCart.forEach(item => {
-                    SoupCost += item.totalPrice
-                    console.log(propsCart);
+                    SoupCost = SoupCost + item.totalPrice
                     total = total + item.totalPrice + this.state.deliveryCost
                 })
                 this.setState({ allCart: propsCart, loaded: true, allSoupCost: SoupCost, totalPrice: total })
                 return
             } else {
                 localCart.forEach(item => {
-                    SoupCost += item.totalPrice
+                    SoupCost = SoupCost + item.totalPrice
+                    console.log(item.totalPrice);
                     total = total + item.totalPrice + this.state.deliveryCost
                 })
                 this.props.LoadCart(localCart)
@@ -61,9 +67,23 @@ class ShoppingCart extends Component {
         }
 
     }
-    toPayPage = () => {
+
+    toUserPay = () => {
         const allState = this.state
         delete allState.loaded
+        delete allState.isUser
+        console.log(allState);
+        this.props.ClearCart()
+        this.props.LoadOrder(allState)
+        localStorage.setItem("order", JSON.stringify(allState))
+        localStorage.setItem('order', JSON.stringify(allState))
+        this.props.history.push(USER_PAY)
+    }
+
+    toGuestPay = () => {
+        const allState = this.state
+        delete allState.loaded
+        delete allState.isUser
         console.log(allState);
         this.props.ClearCart()
         this.props.LoadOrder(allState)
@@ -73,7 +93,7 @@ class ShoppingCart extends Component {
     }
     render() {
         console.log(this.state.allCart);
-        const { loaded, allCart, allSoupCost, totalPrice, deliveryCost } = this.state
+        const { loaded, allCart, allSoupCost, totalPrice, deliveryCost, isUser } = this.state
         return (
             <div>
                 <h1>test cart</h1>
@@ -118,14 +138,16 @@ class ShoppingCart extends Component {
                             ))}
                     </ul>
                     <Link to={MENUE}>Keep Shopping</Link>
-                    <button onClick={this.toPayPage}>Pay</button>
+                    {isUser ? <button onClick={this.toUserPay}>UserPay</button> : <button onClick={this.toGuestPay}>Pay</button>}
+
                 </> : 'Loading'}
             </div>
         )
     }
 }
 const mapStateToProps = state => ({
-    cart: state.cart
+    cart: state.cart,
+    user: state.authUserRedux.user
 })
 
 

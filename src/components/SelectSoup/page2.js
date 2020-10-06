@@ -4,8 +4,8 @@ class Page2
     constructor(props) {
         super(props)
         this.state = {
-            soupPrice: 0,
-            totalPrice: 0,
+            soupPrice: 62,
+            totalPrice: 62,
             extraPrice: 0,
             accessories: {
                 bread: 0,

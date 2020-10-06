@@ -13,9 +13,9 @@ const MenueNav = ({ authUser }) => (
                     <>
                         {authUser ?
                             <div>
-                                {console.log(authUser.roles.ADMIN)}
+
                                 <p>{authUser.username}</p>
-                                {authUser.roles.ADMIN === ADMIN ?
+                                {authUser.roles && authUser.roles.ADMIN ?
                                     <Link to={ADMIN_PAGE}>To Admin</Link> : null}
                                 <Link to={ACCOUT_PAGE} >Account</Link>
                                 <SignOutButton />

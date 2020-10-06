@@ -13,7 +13,6 @@ export class PayPage extends Component {
         this.state = {
             allPayInfo: '',
             loaded: false,
-            isUser: false
         }
     }
     componentDidMount() {
@@ -24,10 +23,6 @@ export class PayPage extends Component {
         } else {
             this.props.LoadOrder(localOrder)
             this.setState({ loaded: true, allPayInfo: localOrder })
-        }
-        if (this.props.user !== null) {
-            console.log(this.props.user);
-            this.setState({ isUser: true })
         }
     }
     onSubmitPay = () => {
@@ -53,10 +48,7 @@ export class PayPage extends Component {
             <div>
                 {loaded ? <div>
                     <h1>Submit Payment</h1>
-                    {!isUser ? <button onClick={this.onSubmitPay}>Submit Pay</button> :
-                        <Link to={USER_PAY}>To User pay</Link>
-                    }
-
+                    <button onClick={this.onSubmitPay}>Submit Pay</button>
                     <Link to={SHOPPING_CART}>Back</Link>
                 </div> : <p>Loading...</p>}
             </div>
@@ -66,7 +58,6 @@ export class PayPage extends Component {
 
 const mapStateToProps = state => ({
     order: state.orderRedux.order,
-    user: state.authUserRedux.user
 })
 
 export default connect(mapStateToProps, { LoadOrder, ClearOrder })(compose(withFirebase, withRouter)(PayPage))
