@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { compose } from 'recompose'
-import { MENUE } from '../../constants/routes'
+import { LANDING, USER_PAY, ADMIN_PAGE } from '../../constants/routes'
 import { withFirebase } from '../Firebase'
+import SignOutButton from '../SignOut'
+import * as STYLED from './styled'
+import { AuthUserContext } from '../Session'
 class AccountPage extends Component {
     constructor(props) {
         super(props)
@@ -17,7 +19,11 @@ class AccountPage extends Component {
         }
     }
     componentDidMount() {
+        console.log(this.props.userAuth);
         const user = this.props.userAuth
+        if (user === null) {
+            this.props.history.push(LANDING)
+        }
         console.log(user);
         this.props.firebase.userFirends(user.userID).on('value', snaphot => {
             const dbValues = snaphot.val()
@@ -72,34 +78,70 @@ class AccountPage extends Component {
     render() {
         const { loading, firends } = this.state
         return (
-            <div>
-                <h1>{this.props.userAuth.username}</h1>
-                <p>Email : {this.props.userAuth.email}</p>
-                <Link to={MENUE}>Back</Link>
-                {loading ? <div>
-                    <h5>Add friend</h5>
-                    <form onSubmit={this.SubmitAddFriend}>
-                        <label>Name</label>
-                        <input type="text" onChange={this.onChangeText} name="name" />
-                        <label>Adress</label>
-                        <input type="text" onChange={this.onChangeText} name="adress" />
-                        <button>Submit</button>
-                    </form>
-                    <ul>
-                        {firends.map((item, key) => (
-                            <li key={key} >
-                                <p>Name : {item.name}</p>
-                                <p>Adress : {item.adress}</p>
-                                <button onClick={() => this.DeleteFriend(key)}>Delete Friend</button>
-                            </li>
-                        ))}
-                    </ul>
-                </div> : <p>Loading</p>}
+            <>
+                {this.props.userAuth !== null ? <>
+                    <STYLED.TitlePage>Account</STYLED.TitlePage>
+                    <HasAdmin />
+                    <STYLED.UserInfoAndSignoutButton>
+                        <STYLED.UserInfoFlex>
+                            <STYLED.UserInfoText>Username : {this.props.userAuth.username}</STYLED.UserInfoText>
+                            <STYLED.UserInfoText>Email : {this.props.userAuth.email}</STYLED.UserInfoText>
+                        </STYLED.UserInfoFlex>
+                        <SignOutButton />
+                    </STYLED.UserInfoAndSignoutButton>
+                    {loading ? <STYLED.FormAndULDiv>
+                        <STYLED.FormTitle>Add friend</STYLED.FormTitle>
+                        <STYLED.StyledForm onSubmit={this.SubmitAddFriend}>
+                            <STYLED.InputFlex>
+                                <STYLED.InputDiv>
+                                    <STYLED.StyledInput type="text" onChange={this.onChangeText} name="name" placeholder="Type In Name" />
+                                </STYLED.InputDiv>
+                                <STYLED.InputDiv>
+                                    <STYLED.StyledInput type="text" onChange={this.onChangeText} name="adress" placeholder="Type In Adress" />
+                                </STYLED.InputDiv>
+                            </STYLED.InputFlex>
+                            <STYLED.SubmitInput>Submit</STYLED.SubmitInput>
+                        </STYLED.StyledForm>
+                        <STYLED.FriendsUL>
+                            {firends.map((item, key) => (
+                                <STYLED.ItemUL key={key} >
+                                    <STYLED.AdressAndTextDiv>
+                                        <STYLED.SmallInfoText>Name : {item.name}</STYLED.SmallInfoText>
+                                        <STYLED.SmallInfoText>Adress : {item.adress}</STYLED.SmallInfoText>
+                                    </STYLED.AdressAndTextDiv>
+                                    <STYLED.DeleteButton onClick={() => this.DeleteFriend(key)}>Delete Friend</STYLED.DeleteButton>
+                                </STYLED.ItemUL>
+                            ))}
+                        </STYLED.FriendsUL>
+                    </STYLED.FormAndULDiv> : <p>Loading</p>}
+                </> : null}
 
-            </div>
+                <STYLED.DivButton>
+                    <STYLED.BackButton to={USER_PAY}>Back</STYLED.BackButton>
+                </STYLED.DivButton>
+            </>
         )
     }
 }
+
+const HasAdmin = ({ authUser }) => (
+    <AuthUserContext.Consumer>
+        {authUser =>
+            authUser !== 'loading' ?
+                <>
+                    {authUser ?
+                        <>
+                            {authUser.roles && authUser.roles.ADMIN ?
+                                <STYLED.AdminLink to={ADMIN_PAGE}>Admin</STYLED.AdminLink> : null}
+                        </>
+                        : null}
+                </>
+                : <p>Loading...</p>
+
+        }
+    </AuthUserContext.Consumer>
+)
+
 const mapStateToProps = state => ({
     userAuth: state.authUserRedux.user,
 })

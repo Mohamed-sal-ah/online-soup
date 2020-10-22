@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import * as STYLED from './style'
 export class SingleFriend extends Component {
     constructor(props) {
         super(props)
@@ -29,15 +29,17 @@ export class SingleFriend extends Component {
         const { showMessageInput } = this.state
         const { friend } = this.props
         return (
-            <li>
-                <p>{friend.name}</p>
-                <p>{friend.adress}</p>
-                {showMessageInput ? <div>
-                    <input type="text" name="message" onChange={this.onMessageChange} />
-                    <button onClick={this.sendMessage}>Send Message</button>
-                </div> : <button onClick={this.noMessage} >Send Without message</button>}
-                <button onClick={this.onToggleInput}>ToggleMessage</button>
-            </li>
+            <STYLED.ItemUL>
+                <STYLED.NameAndAdressText>{friend.name}</STYLED.NameAndAdressText>
+                <STYLED.NameAndAdressText>{friend.adress}</STYLED.NameAndAdressText>
+                <STYLED.ListItemButtons>
+                    {showMessageInput ? <STYLED.InputDiv>
+                        <STYLED.StyledInput type="text" name="message" placeholder="Send Message" onChange={this.onMessageChange} />
+                        <STYLED.SubmitInput onClick={this.sendMessage}>Send Message</STYLED.SubmitInput>
+                    </STYLED.InputDiv> : <STYLED.SendWithoutMessageButtton onClick={this.noMessage} >Send Without message</STYLED.SendWithoutMessageButtton>}
+                    <STYLED.ToggleMessaseButton onClick={this.onToggleInput}>ToggleMessage</STYLED.ToggleMessaseButton>
+                </STYLED.ListItemButtons>
+            </STYLED.ItemUL>
         )
     }
 }

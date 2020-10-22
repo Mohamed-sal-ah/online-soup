@@ -12,10 +12,10 @@ const withAuthorization = condition => Component => {
             this.listener = this.props.firebase.onAuthUserListener(
                 authUser => {
                     if (!condition(authUser)) {
-                        this.props.history.push(ROUTES.SIGN_IN);
+                        this.props.history.push(ROUTES.LANDING);
                     }
                 },
-                () => this.props.history.push(ROUTES.SIGN_IN),
+                () => this.props.history.push(ROUTES.LANDING),
             );
         }
         componentWillUnmount() {
@@ -25,15 +25,15 @@ const withAuthorization = condition => Component => {
             return (
                 <AuthUserContext.Consumer>
                     {authUser =>
-                    condition(authUser) ? <Component {...this.props} /> : null
+                        condition(authUser) ? <Component {...this.props} /> : null
                     }
                 </AuthUserContext.Consumer>
             );
         }
     }
     return compose(
-    withRouter,
-    withFirebase,
+        withRouter,
+        withFirebase,
     )(WithAuthorization);
 };
 

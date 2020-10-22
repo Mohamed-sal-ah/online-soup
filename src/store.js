@@ -5,10 +5,17 @@ import rootReducer from './reducers'
 const inizialState = {}
 
 const middleWare = [thunk]
-
-const store = createStore(rootReducer, inizialState, compose(
-    applyMiddleware(...middleWare),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-))
+let allStore
+if (window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()) {
+    allStore = createStore(rootReducer, inizialState, compose(
+        applyMiddleware(...middleWare),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    ))
+} else {
+    allStore = createStore(rootReducer, inizialState, compose(
+        applyMiddleware(...middleWare)
+    ))
+}
+const store = allStore
 
 export default store

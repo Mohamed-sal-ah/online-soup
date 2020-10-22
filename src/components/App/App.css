@@ -1,0 +1,39 @@
+@font-face{
+   src: url("../../fonts/Righteous-Regular.ttf"); 
+   font-family: Righteous;
+}
+@font-face{
+   src: url("../../fonts/Sansita-Regular.ttf"); 
+   font-family: Sansita;
+}
+@font-face{
+   src: url("../../fonts/Sansita-Bold.ttf"); 
+   font-family: Sansita-Bold;
+}
+
+.page {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: #FFFCFB;
+}
+.fade-appear,
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+.fade-appear-active,
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 1s ease-in 550ms;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
+

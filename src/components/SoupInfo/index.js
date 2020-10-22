@@ -4,8 +4,19 @@ import { withFirebase } from '../Firebase'
 import { connect } from 'react-redux'
 import { compose } from 'recompose';
 import { FetchMenue } from '../../action/menueAction'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import * as ROUTE from '../../constants/routes'
+import * as STYLED from './style'
+import EggRamen from '../../images/egg-ramen.jpg'
+import MeatSoup from '../../images/meat.jpg'
+import Toscana from '../../images/toscana.jpg'
+import Gulash from '../../images/gulash.jpg'
+import MaizeSoup from '../../images/maize.jpg'
+import CarrotSoup from '../../images/carrot.jpg'
+import ShellFish from '../../images/shellfish.jpg'
+import Salmon from '../../images/salmon.jpg'
+
+
 class SoupInfo extends Component {
     constructor(props) {
         super(props)
@@ -24,6 +35,7 @@ class SoupInfo extends Component {
             this.setState({ loading: true, info: null })
             this.props.history.push(ROUTE.MENUE)
         } else if (this.props.menueList === "") {
+
             this.props.firebase.menueList().on("value", snapshot => {
                 const menueList = snapshot.val()
                 // this.setState({ menue: menueList, loading: true })
@@ -38,31 +50,60 @@ class SoupInfo extends Component {
     }
     render() {
         const { loading, info, id } = this.state
+        const allImgArray = [
+            EggRamen,
+            MeatSoup,
+            Toscana,
+            Gulash,
+            MaizeSoup,
+            CarrotSoup,
+            ShellFish,
+            Salmon
+        ]
         return (
-            <div>
-                {loading ? <div>
-                    {info !== null ?
-                        <div>
-                            <img alt="bild på soppan" src="https://placeimg.com/600/600/nature" />
-                            <h1>{info.name}</h1>
-                            <h5>ingirenser</h5>
-                            <ul>
-                                {info.ingredient.map((item, key) => (
-                                    <p key={key}>{item}</p>
-                                ))}
-                            </ul>
-                            <h5>Energi</h5>
-                            <ul>
-                                <p>{info.nutritionalValue.carbohydrates}</p>
-                                <p>{info.nutritionalValue.fat}</p>
-                                <p>{info.nutritionalValue.salt}</p>
-                                <p>{info.nutritionalValue.protein}</p>
-                                <p>{info.nutritionalValue.energy}</p>
-                            </ul>
-                        </div> : <p>not found</p>}
-                </div> : <p>Loading</p>}
-                <Link to={ROUTE.MENUE}>Back</Link><Link to={`/select/${id}`}>Add</Link>
-            </div>
+            <STYLED.FullPage className="page">
+                {loading ?
+                    <STYLED.BackGroundImage
+                        BackImage={`url(${allImgArray[id]})  center no-repeat`}
+                    >
+                        <STYLED.BackgroundOpacity>
+                            {info !== null ?
+                                <>
+                                    <STYLED.TitleAndListDiv>
+                                        <STYLED.PriceAndNameDiv>
+                                            <STYLED.TitleHeader>{info.name}</STYLED.TitleHeader>
+                                            <STYLED.PriceHeader>{info.price}:-</STYLED.PriceHeader>
+                                        </STYLED.PriceAndNameDiv>
+                                        <STYLED.ListDiv>
+                                            <STYLED.TitleList>Ingirenser</STYLED.TitleList>
+                                            <STYLED.ListUL>
+                                                {info.ingredient.map((item, key) => (
+                                                    <STYLED.ListText key={key}>{item}</STYLED.ListText>
+                                                ))}
+                                            </STYLED.ListUL>
+                                            <STYLED.TitleList>Energi</STYLED.TitleList>
+                                            <STYLED.ListUL>
+                                                <STYLED.ListText>{info.nutritionalValue.carbohydrates}</STYLED.ListText>
+                                                <STYLED.ListText>{info.nutritionalValue.fat}</STYLED.ListText>
+                                                <STYLED.ListText>{info.nutritionalValue.salt}</STYLED.ListText>
+                                                <STYLED.ListText>{info.nutritionalValue.protein}</STYLED.ListText>
+                                                <STYLED.ListText>{info.nutritionalValue.energy}</STYLED.ListText>
+                                            </STYLED.ListUL>
+                                        </STYLED.ListDiv>
+                                    </STYLED.TitleAndListDiv>
+                                </> : <p>not found</p>}
+                            <STYLED.LinkItemDiv>
+                                <STYLED.BackLink to={ROUTE.MENUE}>
+                                    <STYLED.BackArrow />
+                                </STYLED.BackLink>
+                                <STYLED.AddLink to={`/select/${id}`}>
+                                    <STYLED.AddSymbol />
+                                </STYLED.AddLink>
+                            </STYLED.LinkItemDiv>
+                        </STYLED.BackgroundOpacity>
+                    </STYLED.BackGroundImage>
+                    : <p>Loading</p>}
+            </STYLED.FullPage>
         )
     }
 }

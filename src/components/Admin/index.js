@@ -5,7 +5,7 @@ import { withFirebase } from '../Firebase';
 import { withAuthorization, AuthUserContext } from '../Session';
 
 const Admin = () => (
-    <>
+    <div className="page">
         <AuthUserContext.Consumer>
             {authUser => (
                 <>
@@ -18,7 +18,7 @@ const Admin = () => (
 
             )}
         </AuthUserContext.Consumer>
-    </>
+    </div>
 
 )
 const condition = authUser =>

@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
-// import styled from 'styled-components'
+import * as STYLED from './style'
 
 
 
 const SignInPage = () => (
-    <div>
+    <STYLED.FullPage className="page">
         <SignInForm />
-        <SignUpLink />
-    </div>
+    </STYLED.FullPage>
 );
 
 const INITIAL_STATE = {
@@ -32,7 +30,7 @@ class SignInFormBase extends Component {
         this.props.firebase
             .doSignInWithEmailAndPassword(email, password).then(() => {
                 this.setState({ ...INITIAL_STATE });
-                this.props.history.push(ROUTES.MENUE);
+                this.props.history.push(ROUTES.USER_PAY);
             })
             .catch(error => {
                 this.setState({ error });
@@ -47,31 +45,36 @@ class SignInFormBase extends Component {
         const { email, password, error } = this.state;
         const isInvalid = password === '' || email === '';
         return (
-            <div>
-                <h1>Sign in your account</h1>
-                <form onSubmit={this.onSubmit}>
-                    <input
-                        name="email"
-                        value={email}
-                        onChange={this.onChange}
-                        type="text"
-                        placeholder="Email Address"
-                    />
-                    <input
-                        name="password"
-                        value={password}
-                        onChange={this.onChange}
-                        type="password"
-                        placeholder="Password"
-                    />
-                    <br></br>
-                    <button disabled={isInvalid} type="submit">
-                        Sign In
-                        </button>
-                    {error && <p>{error.message}</p>}
-                </form>
+            <>
+                <STYLED.TitlePage>Sign in your account</STYLED.TitlePage>
+                <STYLED.FormStyled onSubmit={this.onSubmit}>
+                    <STYLED.InputDiv>
 
-            </div>
+                        <STYLED.StyledInput
+                            name="email"
+                            value={email}
+                            onChange={this.onChange}
+                            type="text"
+                            placeholder="Email Address"
+                        />
+                        <STYLED.StyledInput
+                            name="password"
+                            value={password}
+                            onChange={this.onChange}
+                            type="password"
+                            placeholder="Password"
+                        />
+                    </STYLED.InputDiv>
+                    {error && <p>{error.message}</p>}
+                    <STYLED.DivButton>
+                        <STYLED.BackButton to={ROUTES.USER_STATUS}>Back</STYLED.BackButton>
+                        <STYLED.SubmitButton disabled={isInvalid} type="submit">
+                            Sign In
+                        </STYLED.SubmitButton>
+                    </STYLED.DivButton>
+                </STYLED.FormStyled>
+
+            </>
         );
     }
 }

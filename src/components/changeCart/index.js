@@ -3,11 +3,21 @@ import { connect } from 'react-redux'
 import { withFirebase } from '../Firebase'
 import { compose } from 'recompose';
 import { ChangeCart, LoadCart } from '../../action/cartAction'
-import { Link, withRouter } from "react-router-dom";
-import { MENUE } from '../../constants/routes'
+import { withRouter } from "react-router-dom";
+import { MENUE, SHOPPING_CART } from '../../constants/routes'
+import * as STYLED from './style'
 import Page1 from './page1';
 import Page2 from './page2';
 import Page3 from './page3';
+
+const variants = {
+    disapear: {
+        opacity: 0
+    },
+    appear: {
+        opacity: 1,
+    }
+}
 
 class ChangeSoup extends Component {
     constructor(props) {
@@ -16,10 +26,13 @@ class ChangeSoup extends Component {
         this.state = {
             loading: false,
             whichPage: 1,
+            progressPage: 1,
             page1: '',
             page2: '',
             page3: '',
-            localArr: ''
+            localArr: '',
+            pageOpacity: true,
+            allComplete: false
         }
     }
     componentDidMount() {
@@ -91,40 +104,54 @@ class ChangeSoup extends Component {
 
     }
     onBackPage = () => {
-        const newState = this.state.whichPage - 1
-        this.setState({ whichPage: newState })
+        const progress = this.state.progressPage - 1
+        const opacity = !this.state.pageOpacity
+        this.setState({ pageOpacity: opacity, progressPage: progress })
+        setTimeout(() => {
+            const newState = this.state.whichPage - 1
+            this.setState({ whichPage: newState, pageOpacity: true })
+        }, 550)
     }
     onForwardPage = () => {
-        const newState = this.state.whichPage + 1
-        this.setState({ whichPage: newState })
+        const progress = this.state.progressPage + 1
+        const opacity = !this.state.pageOpacity
+        this.setState({ pageOpacity: opacity, progressPage: progress })
+        setTimeout(() => {
+            const newState = this.state.whichPage + 1
+            this.setState({ whichPage: newState, pageOpacity: true })
+        }, 550)
     }
     onChangePage = (pageNumb, info) => {
         console.log(info);
         this.setState({ [`page${pageNumb}`]: info })
     }
     onSubmitAll = () => {
-        const nameSoup = this.state.name;
-        const oldArr = this.state.localArr
-        const page1Obj = this.state.page1
-        console.log(page1Obj);
-        const page2Obj = this.state.page2
-        const page3Obj = this.state.page3
-        const newArr = []
-        oldArr.forEach((item, index) => {
-            if (index === parseInt(this.props.match.params.id)) {
-                newArr.push({ ...page1Obj, ...page2Obj, ...page3Obj, name: nameSoup })
-            } else {
-                newArr.push(oldArr[index])
-            }
-        });
-        console.log(newArr);
-        localStorage.setItem('cart', JSON.stringify(newArr))
-        this.props.ChangeCart(newArr)
-        this.props.history.push(MENUE)
+        this.setState({ allComplete: true })
+        setTimeout(() => {
+            const nameSoup = this.state.name;
+            const oldArr = this.state.localArr
+            const page1Obj = this.state.page1
+            console.log(page1Obj);
+            const page2Obj = this.state.page2
+            const page3Obj = this.state.page3
+            const newArr = []
+            oldArr.forEach((item, index) => {
+                if (index === parseInt(this.props.match.params.id)) {
+                    newArr.push({ ...page1Obj, ...page2Obj, ...page3Obj, name: nameSoup })
+                } else {
+                    newArr.push(oldArr[index])
+                }
+            });
+            console.log(newArr);
+            localStorage.setItem('cart', JSON.stringify(newArr))
+            this.props.ChangeCart(newArr)
+            this.props.history.push(SHOPPING_CART)
+        }, 600)
     }
     render() {
-        const { whichPage, loading, page1, page2, page3 } = this.state
+        const { whichPage, loading, page1, page2, page3, pageOpacity, progressPage, allComplete } = this.state
         let page;
+        let lenght;
         if (loading) {
             switch (whichPage) {
                 case 1:
@@ -140,16 +167,57 @@ class ChangeSoup extends Component {
                 default:
                     break;
             }
+            if (allComplete) {
+                lenght = "100%"
+            } else {
+                switch (progressPage) {
+                    case 1:
+                        lenght = "0"
+                        break;
+                    case 2:
+                        lenght = "35%"
+                        break;
+                    case 3:
+                        lenght = "65%"
+                        break;
+                    default:
+
+                        break;
+                }
+            }
         } else {
             page = <p>Loading...</p>
         }
 
         return (
-            <section>
-                {page}
-                {whichPage < 2 ? <Link to={MENUE}>Back</Link> : <button onClick={this.onBackPage}>Back</button>}
-                {whichPage < 3 ? <button onClick={this.onForwardPage}>forwards</button> : <button onClick={this.onSubmitAll} >all Forwards</button>}
-            </section>
+            <STYLED.FullPage className="page">
+                <STYLED.MotionDiv
+                    animate={pageOpacity ? "appear" : "disapear"}
+                    variants={variants}
+                    transition={{ duration: 0.5 }}
+                >
+                    {page}
+                </STYLED.MotionDiv>
+                <STYLED.ProgressDivButton>
+                    <STYLED.ProgressTotalDiv>
+                        <STYLED.Progress>
+                            <STYLED.SpanPercent style={{ width: `${lenght}` }} />
+                        </STYLED.Progress>
+                        <STYLED.StepsDiv>
+                            <STYLED.Step className={`${progressPage === 1 ? "selected" : ''} ${progressPage > 1 ? "completed" : ''}`} />
+                            <STYLED.Step className={`${progressPage === 2 ? "selected" : ''} ${progressPage > 2 ? "completed" : ''}`} />
+                            <STYLED.Step className={`${progressPage === 3 && !allComplete ? "selected" : ''} ${allComplete ? "completed" : ''}`} />
+                            <STYLED.CompletedStep className={`${allComplete ? "submit" : ''}`} >
+                                <STYLED.CompletedCheckMark />
+                            </STYLED.CompletedStep>
+                        </STYLED.StepsDiv>
+                    </STYLED.ProgressTotalDiv>
+                    <STYLED.DivButton>
+                        {whichPage < 2 ? <STYLED.BackButton to={MENUE}>Back</STYLED.BackButton> : <STYLED.BackButton as="button" onClick={this.onBackPage}>Back</STYLED.BackButton>}
+                        {whichPage < 3 ? <STYLED.SubmitButton onClick={this.onForwardPage}>Nästa</STYLED.SubmitButton> : <STYLED.SubmitButton onClick={this.onSubmitAll} >Nästa</STYLED.SubmitButton>}
+                    </STYLED.DivButton>
+                </STYLED.ProgressDivButton>
+            </STYLED.FullPage>
         )
     }
 }

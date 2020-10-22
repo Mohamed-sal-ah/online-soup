@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import * as STYLED from './style'
 
 const INITIAL_STATE = {
     username: '',
     email: '',
     passwordOne: '',
     passwordTwo: '',
-    adress : '',
-    isAdmin:false,
-    isGuest:false,
+    adress: '',
+    phone: '',
+    isAdmin: false,
+    isGuest: false,
     error: null,
-    };
+};
 
 const SignUpPage = () => {
-    return ( <div>
-        <h1>SignUp</h1>
+    return (<STYLED.FullPage className="page">
+        <STYLED.TitlePage>SignUp</STYLED.TitlePage>
         <SignUpForm />
-    </div> );
+    </STYLED.FullPage>);
 }
 
 class SignUpFormBase extends Component {
@@ -29,7 +31,7 @@ class SignUpFormBase extends Component {
         this.state = { ...INITIAL_STATE }
     }
     onSubmit = event => {
-        const { username, email, passwordOne, adress} = this.state;
+        const { username, email, passwordOne, adress, phone } = this.state;
         this.props.firebase
             .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
@@ -43,12 +45,13 @@ class SignUpFormBase extends Component {
                         email,
                         adress,
                         createdDate,
+                        phone,
                         userID
                     });
             })
             .then(() => {
                 this.setState({ ...INITIAL_STATE });
-                this.props.history.push(ROUTES.MENUE);
+                this.props.history.push(ROUTES.USER_PAY);
             })
             .catch(error => {
                 this.setState({ error });
@@ -59,9 +62,9 @@ class SignUpFormBase extends Component {
         this.setState({ [event.target.name]: event.target.value });
     };
     onChangeCheckbox = event => {
-        this.setState({[event.target.name]:event.target.checked})
+        this.setState({ [event.target.name]: event.target.checked })
     }
-    render() { 
+    render() {
         const {
             username,
             email,
@@ -69,73 +72,80 @@ class SignUpFormBase extends Component {
             passwordTwo,
             adress,
             error,
-            } = this.state;
-            const isInvalid =
+            phone
+        } = this.state;
+        const isInvalid =
             passwordOne !== passwordTwo ||
             passwordOne === '' ||
             email === '' ||
             adress === '' ||
             username === '';
 
-        return ( 
-            <form onSubmit={this.onSubmit}>
-                <input
-                    name="username"
-                    value={username}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Full Name"
-                />
-                <input
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <input
-                    name="adress"
-                    value={adress}
-                    onChange={this.onChange}
-                    type="adress"
-                    placeholder="Home Adress"
-                />
-                <input
-                    name="passwordOne"
-                    value={passwordOne}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Password"
-                />
-                <input
-                    name="passwordTwo"
-                    value={passwordTwo}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Confirm Password"
-                />
-                <button disabled={isInvalid} type="submit">
-                    Sign Up
-                </button>
+        return (
+            <STYLED.FormStyled onSubmit={this.onSubmit}>
+                <STYLED.InputDiv>
+
+                    <STYLED.StyledInput
+                        name="username"
+                        value={username}
+                        onChange={this.onChange}
+                        type="text"
+                        placeholder="Full Name"
+                    />
+                    <STYLED.StyledInput
+                        name="email"
+                        value={email}
+                        onChange={this.onChange}
+                        type="text"
+                        placeholder="Email Address"
+                    />
+                    <STYLED.StyledInput
+                        name="adress"
+                        value={adress}
+                        onChange={this.onChange}
+                        type="adress"
+                        placeholder="Home Adress"
+                    />
+                    <STYLED.StyledInput
+                        name="passwordOne"
+                        value={passwordOne}
+                        onChange={this.onChange}
+                        type="password"
+                        placeholder="Password"
+                    />
+                    <STYLED.StyledInput
+                        name="passwordTwo"
+                        value={passwordTwo}
+                        onChange={this.onChange}
+                        type="password"
+                        placeholder="Confirm Password"
+                    />
+                    <STYLED.StyledInput type="text"
+                        name="phone"
+                        onChange={this.onChange}
+                        value={phone}
+                        placeholder="Type in Phone"
+                    />
+                </STYLED.InputDiv>
+                <STYLED.DivButton>
+                    <STYLED.BackButton to={ROUTES.USER_STATUS}>Back</STYLED.BackButton>
+                    <STYLED.SubmitButton disabled={isInvalid} type="submit">
+                        Sign Up
+                </STYLED.SubmitButton>
+                </STYLED.DivButton>
+
                 {error && <p>{error.message}</p>}
-            </form>
-         );
+            </STYLED.FormStyled>
+        );
     }
 }
 
-const SignUpLink = () => (
-    <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-    </p>
-    );
- 
-    const SignUpForm = compose(
-        withRouter,
-        withFirebase,
-        )(SignUpFormBase);
+const SignUpForm = compose(
+    withRouter,
+    withFirebase,
+)(SignUpFormBase);
 
-export { SignUpForm, SignUpLink };
- 
+
 export default SignUpPage;
 
 /* Let’s start with the sign up page (registration page). It consists of the page, a form, and a link. The

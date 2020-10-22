@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-
+import { TitlePage } from './style'
+import * as STYLED from './pages-style'
 class Page1 extends Component {
     constructor(props) {
         super(props)
@@ -23,33 +24,49 @@ class Page1 extends Component {
     render() {
         const { loading, beans, potatoes, pepper, garlic, milk } = this.state
         return (
-            <div id="page 1">
+            <>
                 {loading ? <>
-                    <h1>Page 1</h1>
-                    <h1>Ta bort något</h1>
-                    <div>
-                        <h6>Bönor</h6>
-                        <input type="checkbox" name="beans" onChange={this.onCheckBoxChange} defaultChecked={beans} />
-                    </div>
-                    <div>
-                        <h6>Potatis</h6>
-                        <input type="checkbox" name="potatoes" onChange={this.onCheckBoxChange} defaultChecked={potatoes} />
-                    </div>
-                    <div>
-                        <h6>Paprika</h6>
-                        <input type="checkbox" name="pepper" onChange={this.onCheckBoxChange} defaultChecked={pepper} />
-                    </div>
-                    <div>
-                        <h6>Lök</h6>
-                        <input type="checkbox" name="garlic" onChange={this.onCheckBoxChange} defaultChecked={garlic} />
-                    </div>
-                    <div>
-                        <h6>Mjölk</h6>
-                        <input type="checkbox" name="milk" onChange={this.onCheckBoxChange} defaultChecked={milk} />
-                    </div>
+                    <STYLED.Page1TitleOptions>
+                        <TitlePage>Ta bort något</TitlePage>
+                        <STYLED.Page1NameOptionDiv>
+                            <STYLED.Page1OptionTitle>Bönor</STYLED.Page1OptionTitle>
+                            <STYLED.Page1NameOptionLabel>
+                                <STYLED.Page1CustomOptionInput type="checkbox" name="beans" onChange={this.onCheckBoxChange} defaultChecked={beans} />
+                                <STYLED.Page1CustomChecked />
+                            </STYLED.Page1NameOptionLabel>
+                        </STYLED.Page1NameOptionDiv>
+                        <STYLED.Page1NameOptionDiv>
+                            <STYLED.Page1OptionTitle>Potatis</STYLED.Page1OptionTitle>
+                            <STYLED.Page1NameOptionLabel>
+                                <STYLED.Page1CustomOptionInput type="checkbox" name="potatoes" onChange={this.onCheckBoxChange} defaultChecked={potatoes} />
+                                <STYLED.Page1CustomChecked />
+                            </STYLED.Page1NameOptionLabel>
+                        </STYLED.Page1NameOptionDiv>
+                        <STYLED.Page1NameOptionDiv>
+                            <STYLED.Page1OptionTitle>Paprika</STYLED.Page1OptionTitle>
+                            <STYLED.Page1NameOptionLabel>
+                                <STYLED.Page1CustomOptionInput type="checkbox" name="pepper" onChange={this.onCheckBoxChange} defaultChecked={pepper} />
+                                <STYLED.Page1CustomChecked />
+                            </STYLED.Page1NameOptionLabel>
+                        </STYLED.Page1NameOptionDiv>
+                        <STYLED.Page1NameOptionDiv>
+                            <STYLED.Page1OptionTitle>Lök</STYLED.Page1OptionTitle>
+                            <STYLED.Page1NameOptionLabel>
+                                <STYLED.Page1CustomOptionInput type="checkbox" name="garlic" onChange={this.onCheckBoxChange} defaultChecked={garlic} />
+                                <STYLED.Page1CustomChecked />
+                            </STYLED.Page1NameOptionLabel>
+                        </STYLED.Page1NameOptionDiv>
+                        <STYLED.Page1NameOptionDiv>
+                            <STYLED.Page1OptionTitle>Mjölk</STYLED.Page1OptionTitle>
+                            <STYLED.Page1NameOptionLabel>
+                                <STYLED.Page1CustomOptionInput type="checkbox" name="milk" onChange={this.onCheckBoxChange} defaultChecked={milk} />
+                                <STYLED.Page1CustomChecked />
+                            </STYLED.Page1NameOptionLabel>
+                        </STYLED.Page1NameOptionDiv>
+                    </STYLED.Page1TitleOptions>
                 </> : <p>Loading...</p>}
 
-            </div>
+            </>
         )
     }
 }

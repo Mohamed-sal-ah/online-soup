@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-
+import { TitlePage } from './style'
+import * as STYLED from './pages-style'
 class Page3 extends Component {
     constructor(props) {
         super(props)
@@ -26,17 +27,23 @@ class Page3 extends Component {
     render() {
         const { warmBool, coldBool } = this.state
         return (
-            <div id="page 3">
-                <h1>Page 3</h1>
-                <div>
-                    <h6>Varm</h6>
-                    <input type="radio" name="warm" checked={warmBool} onChange={this.onChangeRadio}></input>
-                </div>
-                <div>
-                    <h6>Kall</h6>
-                    <input type="radio" name="cold" checked={coldBool} onChange={this.onChangeRadio}></input>
-                </div>
-            </div>
+            <STYLED.Page3TitleRadioSection>
+                <TitlePage>Hur vill du ha soppan</TitlePage>
+                <STYLED.Page3NameRadioButtonDiv >
+                    <STYLED.Page3RadioTitle>Varm</STYLED.Page3RadioTitle>
+                    <STYLED.Page3RadioLabel>
+                        <STYLED.Page3Input type="radio" name="warm" checked={warmBool} onChange={this.onChangeRadio} />
+                        <STYLED.Page3CustomCheckmark />
+                    </STYLED.Page3RadioLabel>
+                </STYLED.Page3NameRadioButtonDiv >
+                <STYLED.Page3NameRadioButtonDiv >
+                    <STYLED.Page3RadioTitle>Kall</STYLED.Page3RadioTitle>
+                    <STYLED.Page3RadioLabel>
+                        <STYLED.Page3Input type="radio" name="cold" checked={coldBool} onChange={this.onChangeRadio} />
+                        <STYLED.Page3CustomCheckmark />
+                    </STYLED.Page3RadioLabel>
+                </STYLED.Page3NameRadioButtonDiv >
+            </STYLED.Page3TitleRadioSection>
         )
     }
 }

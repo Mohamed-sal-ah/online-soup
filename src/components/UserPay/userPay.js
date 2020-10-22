@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { withFirebase } from '../Firebase'
 import { LoadOrder, ClearOrder } from '../../action/orderAction';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { ACCOUT_PAGE, DELIVERY_STATUS, MENUE, USER_STATUS } from '../../constants/routes';
+import { ACCOUT_PAGE, MENUE, USER_INSTRUCTION, USER_STATUS } from '../../constants/routes';
 import SingleFriend from './singleFriend';
+import * as STYLED from './style'
 
 export class UserPayPage extends Component {
     constructor(props) {
@@ -44,20 +45,27 @@ export class UserPayPage extends Component {
     }
     userSentPay = () => {
         const allState = this.state.allPayInfo
-        const keyID = this.props.firebase.orders().push({
-            date: this.props.firebase.serverValue.TIMESTAMP,
+        localStorage.setItem('order', JSON.stringify({
             username: this.props.user.username,
-            userID: this.props.user.userID,
             delivery: {
                 adress: this.props.user.adress,
             },
             ...allState
-        })
-        this.props.ClearOrder()
+        }))
+        // const keyID = this.props.firebase.orders().push({
+        //     date: this.props.firebase.serverValue.TIMESTAMP,
+        //     username: this.props.user.username,
+        //     userID: this.props.user.userID,
+        //     delivery: {
+        //         adress: this.props.user.adress,
+        //     },
+        //     ...allState
+        // })
+        // this.props.ClearOrder()
         localStorage.removeItem('cart')
-        localStorage.removeItem('order')
-        this.props.firebase.userOrder(this.props.user.userID).push(keyID.key)
-        this.props.history.push(DELIVERY_STATUS)
+        // localStorage.removeItem('order')
+        // this.props.firebase.userOrder(this.props.user.userID).push(keyID.key)
+        this.props.history.push(USER_INSTRUCTION)
     }
 
     userFriendSentPay = (numID, message) => {
@@ -66,11 +74,8 @@ export class UserPayPage extends Component {
         const oneFriend = this.state.friends[numID]
         const friendKey = this.state.firendsKey[numID]
         const allState = this.state.allPayInfo
-        console.log(friendKey);
-        const keyID = this.props.firebase.orders().push({
-            date: this.props.firebase.serverValue.TIMESTAMP,
+        localStorage.setItem('order', JSON.stringify({
             username: this.props.user.username,
-            userID: this.props.user.userID,
             delivery: {
                 adress: oneFriend.adress,
                 to: oneFriend.name,
@@ -78,35 +83,70 @@ export class UserPayPage extends Component {
                 friendID: friendKey
             },
             ...allState
-        })
-        this.props.firebase.userOrder(this.props.user.userID).push(keyID.key)
-        this.props.ClearOrder()
+        }))
+        // console.log(friendKey);
+        // const keyID = this.props.firebase.orders().push({
+        //     date: this.props.firebase.serverValue.TIMESTAMP,
+        //     username: this.props.user.username,
+        //     userID: this.props.user.userID,
+        //     delivery: {
+        //         adress: oneFriend.adress,
+        //         to: oneFriend.name,
+        //         message: message,
+        //         friendID: friendKey
+        //     },
+        //     ...allState
+        // })
+        // this.props.firebase.userOrder(this.props.user.userID).push(keyID.key)
         localStorage.removeItem('cart')
-        localStorage.removeItem('order')
-        this.props.history.push(DELIVERY_STATUS)
+        // localStorage.removeItem('order')
+        this.props.history.push(USER_INSTRUCTION)
     }
+    SubmitAddFriend = e => {
+        e.preventDefault()
+        const user = this.props.userAuth
+        const newFirend = {
+            name: this.state.name,
+            adress: this.state.adress
+        }
+        this.props.firebase.userFirends(user.userID).push({
+            ...newFirend
+        })
+    }
+
     render() {
         const { loading, friends } = this.state
         return (
-            <div>
-                <h1>User Pay</h1>
-                <button onClick={this.userSentPay}>Send to your Self</button>
+            <>
+                <STYLED.TitlePage>User Pay</STYLED.TitlePage>
+                <STYLED.FormTitle>Add friend</STYLED.FormTitle>
+                <STYLED.StyledForm onSubmit={this.SubmitAddFriend}>
+                    <STYLED.AccountLink to={ACCOUT_PAGE}>Account</STYLED.AccountLink>
+                    <STYLED.InputFlex>
+                        <STYLED.InputDivForm>
+                            <STYLED.StyledInputForm type="text" onChange={this.onChangeText} name="name" placeholder="Type In Name" />
+                        </STYLED.InputDivForm>
+                        <STYLED.InputDivForm>
+                            <STYLED.StyledInputForm type="text" onChange={this.onChangeText} name="adress" placeholder="Type In Adress" />
+                        </STYLED.InputDivForm>
+                    </STYLED.InputFlex>
+                    <STYLED.SubmitInputForm>Submit</STYLED.SubmitInputForm>
+                </STYLED.StyledForm>
                 {loading ?
-                    <div>
-                        <h5>List of Friedns</h5>
-                        {friends.length > 0 ? <ul>
+                    <>
+                        <STYLED.FriendsUL>
                             {friends.map((item, index) => (
                                 <SingleFriend key={index}
                                     idNumb={index}
                                     friend={item}
                                     sendOrder={this.userFriendSentPay} />
                             ))}
-                        </ul> : <div>
-                                <p>No Friends</p>
-                                <Link to={ACCOUT_PAGE}>Click here to add Friend</Link>
-                            </div>}
-                    </div> : <p>Loading</p>}
-            </div>
+                        </STYLED.FriendsUL>
+                    </> : <p>Loading</p>}
+                <STYLED.DivButton>
+                    <STYLED.SendButton onClick={this.userSentPay}>Send to your Self</STYLED.SendButton>
+                </STYLED.DivButton>
+            </>
         )
     }
 }

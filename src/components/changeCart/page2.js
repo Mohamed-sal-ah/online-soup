@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { TitlePage } from './style'
+import * as STYLED from './pages-style'
 class Page2 extends Component {
     constructor(props) {
         super(props)
@@ -85,69 +87,105 @@ class Page2 extends Component {
         } = this.state
         console.log(loading);
         return (
-            <div id="page 2">
+            <>
                 {loading ? <>
-                    <h1>Page 2</h1>
-                    <h4>Summa</h4>
-                    <p>Soppan: {soupPrice}</p>
-                    <p>Tillbehör: {extraPrice}</p>
-                    <p>Totalt: {totalPrice}</p>
-                    <h1>Lägg till något</h1>
-
-                    <h5>Tillbehör</h5>
-                    <div id="bread">
-                        <h6>Bröd</h6>
-                        <h6>15:-</h6>
-                        <button onClick={this.onAddNumber}>+</button>
-                        <p>{accessories.bread}</p>
-                        <button onClick={this.onSubractNumber}>-</button>
-                    </div>
-                    <div id="cremeFreche">
-                        <h6>Creme Freche</h6>
-                        <h6>15:-</h6>
-                        <button onClick={this.onAddNumber} >+</button>
-                        <p>{accessories.cremeFreche}</p>
-                        <button onClick={this.onSubractNumber}>-</button>
-                    </div>
-                    <h5>Dryck</h5>
-                    <div id="mineralWater">
-                        <h6>Mineral vatten</h6>
-                        <h6>10:-</h6>
-                        <button onClick={this.onAddNumber}>+</button>
-                        <p>{drinks.mineralWater}</p>
-                        <button onClick={this.onSubractNumber}>-</button>
-                    </div>
-                    <div id="cocoNutWater">
-                        <h6>Kokos vatten</h6>
-                        <h6>10:-</h6>
-                        <button onClick={this.onAddNumber}>+</button>
-                        <p>{drinks.cocoNutWater}</p>
-                        <button onClick={this.onSubractNumber}>-</button>
-                    </div>
-                    <div id="orangeJuice">
-                        <h6>Apelsin Juice</h6>
-                        <h6>10:-</h6>
-                        <button onClick={this.onAddNumber}>+</button>
-                        <p>{drinks.orangeJuice}</p>
-                        <button onClick={this.onSubractNumber}>-</button>
-                    </div>
-                    <div id="appleJuice">
-                        <h6>Äpple Juice</h6>
-                        <h6>10:-</h6>
-                        <button onClick={this.onAddNumber}>+</button>
-                        <p>{drinks.appleJuice}</p>
-                        <button onClick={this.onSubractNumber}>-</button>
-                    </div>
-                    <div id="loka">
-                        <h6>Loka</h6>
-                        <h6>10:-</h6>
-                        <button onClick={this.onAddNumber}>+</button>
-                        <p>{drinks.loka}</p>
-                        <button onClick={this.onSubractNumber}>-</button>
-                    </div>
+                    <STYLED.Page2TitleSecions>
+                        <TitlePage>Lägg till något</TitlePage>
+                        <STYLED.Page2SectionTitleOptionDiv>
+                            <STYLED.Page2SectionTitle>Tillbehör</STYLED.Page2SectionTitle>
+                            <STYLED.Page2NameOptionDiv>
+                                <STYLED.Page2OptionTitle>Bröd</STYLED.Page2OptionTitle>
+                                <STYLED.Page2PriceButtonDiv>
+                                    <STYLED.Page2OptionTitle>15:-</STYLED.Page2OptionTitle>
+                                    <STYLED.Page2ButtonAndValueDiv id="bread">
+                                        <STYLED.PlusSign onClick={this.onAddNumber} />
+                                        <STYLED.AmountNumber>{accessories.bread}</STYLED.AmountNumber>
+                                        <STYLED.MinusSign onClick={this.onSubractNumber} disabled={accessories.bread <= 0} />
+                                    </STYLED.Page2ButtonAndValueDiv>
+                                </STYLED.Page2PriceButtonDiv>
+                            </STYLED.Page2NameOptionDiv>
+                            <STYLED.Page2NameOptionDiv>
+                                <STYLED.Page2OptionTitle>Creme Freche</STYLED.Page2OptionTitle>
+                                <STYLED.Page2PriceButtonDiv>
+                                    <STYLED.Page2OptionTitle>15:-</STYLED.Page2OptionTitle>
+                                    <STYLED.Page2ButtonAndValueDiv id="cremeFreche">
+                                        <STYLED.PlusSign onClick={this.onAddNumber} />
+                                        <STYLED.AmountNumber>{accessories.cremeFreche}</STYLED.AmountNumber>
+                                        <STYLED.MinusSign onClick={this.onSubractNumber} disabled={accessories.cremeFreche <= 0} />
+                                    </STYLED.Page2ButtonAndValueDiv>
+                                </STYLED.Page2PriceButtonDiv>
+                            </STYLED.Page2NameOptionDiv>
+                        </STYLED.Page2SectionTitleOptionDiv >
+                        <STYLED.Page2SectionTitleOptionDiv>
+                            <STYLED.Page2SectionTitle>Dryck</STYLED.Page2SectionTitle>
+                            <STYLED.Page2NameOptionDiv>
+                                <STYLED.Page2OptionTitle>Mineral vatten</STYLED.Page2OptionTitle>
+                                <STYLED.Page2PriceButtonDiv>
+                                    <STYLED.Page2OptionTitle>10:-</STYLED.Page2OptionTitle>
+                                    <STYLED.Page2ButtonAndValueDiv id="mineralWater">
+                                        <STYLED.PlusSign onClick={this.onAddNumber} />
+                                        <STYLED.AmountNumber>{drinks.mineralWater}</STYLED.AmountNumber>
+                                        <STYLED.MinusSign onClick={this.onSubractNumber} disabled={drinks.mineralWater <= 0} />
+                                    </STYLED.Page2ButtonAndValueDiv>
+                                </STYLED.Page2PriceButtonDiv>
+                            </STYLED.Page2NameOptionDiv>
+                            <STYLED.Page2NameOptionDiv >
+                                <STYLED.Page2OptionTitle>Kokos vatten</STYLED.Page2OptionTitle>
+                                <STYLED.Page2PriceButtonDiv>
+                                    <STYLED.Page2OptionTitle>10:-</STYLED.Page2OptionTitle>
+                                    <STYLED.Page2ButtonAndValueDiv id="cocoNutWater">
+                                        <STYLED.PlusSign onClick={this.onAddNumber} />
+                                        <STYLED.AmountNumber>{drinks.cocoNutWater}</STYLED.AmountNumber>
+                                        <STYLED.MinusSign onClick={this.onSubractNumber} disabled={drinks.cocoNutWater <= 0} />
+                                    </STYLED.Page2ButtonAndValueDiv>
+                                </STYLED.Page2PriceButtonDiv>
+                            </STYLED.Page2NameOptionDiv >
+                            <STYLED.Page2NameOptionDiv>
+                                <STYLED.Page2OptionTitle>Apelsin Juice</STYLED.Page2OptionTitle>
+                                <STYLED.Page2PriceButtonDiv>
+                                    <STYLED.Page2OptionTitle>10:-</STYLED.Page2OptionTitle>
+                                    <STYLED.Page2ButtonAndValueDiv id="orangeJuice">
+                                        <STYLED.PlusSign onClick={this.onAddNumber} />
+                                        <STYLED.AmountNumber>{drinks.orangeJuice}</STYLED.AmountNumber>
+                                        <STYLED.MinusSign onClick={this.onSubractNumber} disabled={drinks.orangeJuice <= 0} />
+                                    </STYLED.Page2ButtonAndValueDiv>
+                                </STYLED.Page2PriceButtonDiv>
+                            </STYLED.Page2NameOptionDiv >
+                            <STYLED.Page2NameOptionDiv >
+                                <STYLED.Page2OptionTitle>Äpple Juice</STYLED.Page2OptionTitle>
+                                <STYLED.Page2PriceButtonDiv>
+                                    <STYLED.Page2OptionTitle>10:-</STYLED.Page2OptionTitle>
+                                    <STYLED.Page2ButtonAndValueDiv id="appleJuice">
+                                        <STYLED.PlusSign onClick={this.onAddNumber} />
+                                        <STYLED.AmountNumber>{drinks.appleJuice}</STYLED.AmountNumber>
+                                        <STYLED.MinusSign onClick={this.onSubractNumber} disabled={drinks.appleJuice <= 0} />
+                                    </STYLED.Page2ButtonAndValueDiv>
+                                </STYLED.Page2PriceButtonDiv>
+                            </STYLED.Page2NameOptionDiv >
+                            <STYLED.Page2NameOptionDiv>
+                                <STYLED.Page2OptionTitle>Loka</STYLED.Page2OptionTitle>
+                                <STYLED.Page2PriceButtonDiv>
+                                    <STYLED.Page2OptionTitle>10:-</STYLED.Page2OptionTitle>
+                                    <STYLED.Page2ButtonAndValueDiv id="loka">
+                                        <STYLED.PlusSign onClick={this.onAddNumber} />
+                                        <STYLED.AmountNumber>{drinks.loka}</STYLED.AmountNumber>
+                                        <STYLED.MinusSign onClick={this.onSubractNumber} disabled={drinks.loka <= 0} />
+                                    </STYLED.Page2ButtonAndValueDiv>
+                                </STYLED.Page2PriceButtonDiv>
+                            </STYLED.Page2NameOptionDiv >
+                        </STYLED.Page2SectionTitleOptionDiv >
+                        <STYLED.Page2SectionTitleOptionDiv>
+                            <STYLED.Page2SectionTitle>Summa</STYLED.Page2SectionTitle>
+                            <STYLED.PriceSummaryDiv>
+                                <STYLED.PriceNumber>Soppan: {soupPrice} :-</STYLED.PriceNumber>
+                                <STYLED.PriceNumber>Tillbehör: {extraPrice} :-</STYLED.PriceNumber>
+                                <STYLED.PriceNumber>Totalt: {totalPrice} :-</STYLED.PriceNumber>
+                            </STYLED.PriceSummaryDiv>
+                        </STYLED.Page2SectionTitleOptionDiv>
+                    </STYLED.Page2TitleSecions >
                 </> : <p>Loading...</p>}
 
-            </div>
+            </>
         )
     }
 }

@@ -1,16 +1,27 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import * as ROUTE from '../../constants/routes'
-import { ReactComponent as Soup } from '../../images/Soup landing.svg'
-import './style.css'
+import { ReactComponent as Arrow } from '../../images/Arrow.svg'
+import * as STYLED from './style'
 
 const LandingPage = () => {
     return (
-        <div>
-            <h1>Online Soup</h1>
-            <Link to={ROUTE.USER_STATUS}>To soups</Link>
-            <Soup />
-        </div>
+        <STYLED.FullPage className="page" id='g'>
+            <STYLED.LandingTitle>Online Soup Delivery</STYLED.LandingTitle>
+            <STYLED.PageSection>
+                <STYLED.LeftSide>
+                    <STYLED.SoupStyle />
+                </STYLED.LeftSide>
+                <STYLED.RightSide>
+                    <STYLED.ArrowDiv>
+                        <Arrow />
+                    </STYLED.ArrowDiv>
+                    <STYLED.LargeTitle>Välkommen</STYLED.LargeTitle>
+                    <STYLED.LargeText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</STYLED.LargeText>
+                    <STYLED.ButtonLink to={ROUTE.MENUE}>Till Sopporna</STYLED.ButtonLink>
+                </STYLED.RightSide>
+                <STYLED.LargeBackGroundImg />
+            </STYLED.PageSection>
+        </STYLED.FullPage>
     )
 }
 

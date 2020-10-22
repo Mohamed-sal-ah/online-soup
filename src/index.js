@@ -7,16 +7,16 @@ import * as serviceWorker from './serviceWorker';
 
 import Firebase, { FirebaseContext } from './components/Firebase';
 import { Provider } from 'react-redux'
-
+import { BrowserRouter, Route } from 'react-router-dom';
 import store from './store'
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <FirebaseContext.Provider value={new Firebase()}>
-        <App />
-      </FirebaseContext.Provider>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <FirebaseContext.Provider value={new Firebase()}>
+      <BrowserRouter>
+        <Route path="/" component={() => (<App />)} />
+      </BrowserRouter>
+    </FirebaseContext.Provider>
+  </Provider>,
   document.getElementById('root')
 );
 
