@@ -1,5 +1,5 @@
 import { Signed_in, Signed_out } from './type'
-
+//auth user Redux
 export const LoggIn = (data) => dispatch => {
     dispatch({
         type: Signed_in,

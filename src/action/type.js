@@ -1,3 +1,4 @@
+// Exporting all action
 export const fetch_menue = "FETCH"
 export const Signed_in = "SIGNED_IN"
 export const Signed_out = "SIGNED_OUT"

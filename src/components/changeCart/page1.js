@@ -64,7 +64,7 @@ class Page1 extends Component {
                             </STYLED.Page1NameOptionLabel>
                         </STYLED.Page1NameOptionDiv>
                     </STYLED.Page1TitleOptions>
-                </> : <p>Loading...</p>}
+                </> : null}
 
             </>
         )

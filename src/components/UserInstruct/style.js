@@ -22,10 +22,13 @@ font-size: 40px;
 
 export const InputDiv = styled.div`
 display:flex;
-width:100%;
 flex-direction:column;
 height:100%;
+width:700px;
 justify-content:space-between;
+@media (max-width: 750px) { 
+    width:100%;
+}
 `
 
 export const StyledInput = styled.input`
@@ -71,10 +74,23 @@ text-align:center;
 export const DivButton = styled.div`
 width:100%;
 display:flex;
-background-color: #FFA070;
-justify-content:space-between;
+justify-content:space-around;
 height:fit-content;
-& > * {
-    width:100%;
+margin-bottom: 20px;
+  & > * {
+    width: fit-content;
+    padding: 13px 20px;
+    border-radius: 20px;
+ width:250px;
+  }
+@media (max-width: 750px) { 
+  margin:0;
+  justify-content:space-between;
+  background-color: #FFA070;
+  & > * {
+      padding: 20px 0;
+      width:100%;
+      border-radius:0;
+  }
 }
 `

@@ -98,7 +98,6 @@ class Page2 extends Component {
             accessories,
             drinks
         } = this.state
-        console.log(accessories.bread <= 0);
         return (
             <STYLED.Page2TitleSecions>
                 <TitlePage>Lägg till något</TitlePage>

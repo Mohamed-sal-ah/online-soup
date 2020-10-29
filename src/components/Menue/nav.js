@@ -21,7 +21,7 @@ const MenueNav = ({ cartArr }) => (
                             </>
                             : null}
                     </>
-                    : <p>Loading...</p>
+                    : null
 
             }
         </AuthUserContext.Consumer>

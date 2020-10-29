@@ -10,7 +10,7 @@ const UserPay = () => (
                 <>
                     {authUser !== 'loading' ?
                         <UserPayPage authUser={authUser} /> :
-                        <p>Loading...</p>
+                        null
                     }
 
                 </>

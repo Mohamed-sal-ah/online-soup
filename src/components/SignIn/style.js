@@ -26,13 +26,17 @@ flex-direction: column;
 justify-content: space-between;
 height: 100%;
 width: 100%;
+align-items:center;
 `
 export const InputDiv = styled.div`
 display:flex;
-width:100%;
 flex-direction:column;
 height:100%;
 justify-content:flex-start;
+width:700px;
+@media (max-width: 750px) { 
+    width:100%;
+}
 `
 
 export const StyledInput = styled.input`
@@ -57,10 +61,24 @@ margin-bottom: 50px;
 export const DivButton = styled.div`
 width:100%;
 display:flex;
-background-color: #FFA070;
-justify-content:space-between;
-& > * {
-    width:100%;
+justify-content:space-around;
+height:fit-content;
+margin-bottom: 20px;
+  & > * {
+    width: fit-content;
+    padding: 13px 20px;
+    border-radius: 20px;
+ width:250px;
+  }
+@media (max-width: 750px) { 
+  margin:0;
+  justify-content:space-between;
+  background-color: #FFA070;
+  & > * {
+      padding: 20px 0;
+      width:100%;
+      border-radius:0;
+  }
 }
 `
 export const SubmitButton = styled.button`

@@ -17,7 +17,6 @@ class GuestUser extends Component {
         }
     }
     componentDidMount() {
-        console.log(this.props.userAuth);
         if (this.props.userAuth === null || this.props.userAuth === '') {
             const guestLocal = JSON.parse(localStorage.getItem('guest'))
             if (guestLocal !== null) {
@@ -36,7 +35,6 @@ class GuestUser extends Component {
     onAdressSubmit = () => {
         const allState = this.state
         delete allState.loading
-        console.log(this.state.adress);
         const GuestObj = {
             userID: "GUEST",
             ...allState
@@ -49,44 +47,44 @@ class GuestUser extends Component {
         return (
             <STYLED.FullPage className="page">
                 {loading ? <>
-                    <STYLED.TitlePage>Guest User</STYLED.TitlePage>
+                    <STYLED.TitlePage>Gäst användare</STYLED.TitlePage>
                     <STYLED.InputDiv>
                         <STYLED.StyledInput type="text"
                             name="adress"
                             onChange={this.onChangeText}
                             value={adress}
-                            placeholder="Type in adress"
+                            placeholder="Skriv in adress"
                         />
                         <STYLED.StyledInput type="text"
                             name="username"
                             onChange={this.onChangeText}
                             value={username}
-                            placeholder="Type in Full Name"
+                            placeholder="Skriv i fullnamn"
                         />
                         <STYLED.StyledInput type="text"
                             name="email"
                             onChange={this.onChangeText}
                             value={email}
-                            placeholder="Type in Email"
+                            placeholder="Skriv in epost adress"
                         />
                         <STYLED.StyledInput type="text"
                             name="phone"
                             onChange={this.onChangeText}
                             value={phone}
-                            placeholder="Type in Phone"
+                            placeholder="Skriv in telefon number"
                         />
                         <STYLED.StyledInput type="text"
                             name="instructions"
                             onChange={this.onChangeText}
                             value={instructions}
-                            placeholder="Type in Instuctions"
+                            placeholder="Skriv in instruktioner för leverans"
                         />
                         <STYLED.DivButton>
-                            <STYLED.BackButton to={USER_STATUS}>Back</STYLED.BackButton>
-                            <STYLED.SubmitButton onClick={this.onAdressSubmit}>Submit Adress</STYLED.SubmitButton>
+                            <STYLED.BackButton to={USER_STATUS}>Tillbaka</STYLED.BackButton>
+                            <STYLED.SubmitButton onClick={this.onAdressSubmit}>Vidare</STYLED.SubmitButton>
                         </STYLED.DivButton>
                     </STYLED.InputDiv>
-                </> : <p>Loading...</p>}
+                </> : null}
             </STYLED.FullPage>
         )
     }

@@ -31,29 +31,33 @@ class ChangeSoup extends Component {
             page2: '',
             page3: '',
             localArr: '',
+            howMany: '',
             pageOpacity: true,
             allComplete: false
         }
     }
     componentDidMount() {
-        const { match: { params } } = this.props;
-        console.log(params.id);
         const allCart = JSON.parse(localStorage.getItem('cart'))
         if (allCart === null) {
+            // no items in allCart
             this.setState({ localArr: [] })
         } else {
+            // has items in allCart
             this.setState({ localArr: allCart })
         }
         const id = parseInt(this.props.match.params.id)
         const propsCart = this.props.cart
         const localCart = JSON.parse(localStorage.getItem('cart'))
         if (isNaN(id) || id < 0) {
+            // has non number
             this.props.history.push(MENUE)
             return
         } else {
             if (propsCart.length === 0 && localCart === null) {
+                // no items in cart
                 this.props.history.push(MENUE)
             } else if (propsCart.length !== 0) {
+                // cart in redux
                 const oneCart = propsCart[id]
                 const page1Add = {
                     remove: {
@@ -74,8 +78,10 @@ class ChangeSoup extends Component {
                 const page3Add = {
                     tempatrure: temp
                 }
-                this.setState({ loading: true, page1: page1Add, page2: page2Add, page3: page3Add, name: oneCart.name })
+                // input all cart in state
+                this.setState({ loading: true, page1: page1Add, page2: page2Add, page3: page3Add, name: oneCart.name, howMany: oneCart.howMany })
             } else {
+                // cart in localstorage
                 const oneCart = localCart[id]
                 this.props.LoadCart(localCart)
                 const page1Add = {
@@ -97,52 +103,57 @@ class ChangeSoup extends Component {
                 const page3Add = {
                     tempatrure: temp
                 }
-                this.setState({ loading: true, page1: page1Add, page2: page2Add, page3: page3Add, name: oneCart.name })
+                // input all cart in state
+                this.setState({ loading: true, page1: page1Add, page2: page2Add, page3: page3Add, name: oneCart.name, howMany: oneCart.howMany })
             }
-            console.log(allCart);
         }
 
     }
     onBackPage = () => {
+        // step backward
         const progress = this.state.progressPage - 1
         const opacity = !this.state.pageOpacity
         this.setState({ pageOpacity: opacity, progressPage: progress })
         setTimeout(() => {
+            // page change animation
             const newState = this.state.whichPage - 1
             this.setState({ whichPage: newState, pageOpacity: true })
         }, 550)
     }
     onForwardPage = () => {
+        // step forward
         const progress = this.state.progressPage + 1
         const opacity = !this.state.pageOpacity
         this.setState({ pageOpacity: opacity, progressPage: progress })
         setTimeout(() => {
+            // page change animation
             const newState = this.state.whichPage + 1
             this.setState({ whichPage: newState, pageOpacity: true })
         }, 550)
     }
     onChangePage = (pageNumb, info) => {
-        console.log(info);
+        // input all page value in page state 
         this.setState({ [`page${pageNumb}`]: info })
     }
     onSubmitAll = () => {
+        // submit all page value
         this.setState({ allComplete: true })
         setTimeout(() => {
+            // animtion for add add item for cart in menue page
             const nameSoup = this.state.name;
             const oldArr = this.state.localArr
             const page1Obj = this.state.page1
-            console.log(page1Obj);
             const page2Obj = this.state.page2
             const page3Obj = this.state.page3
+            const howManySoups = this.state.howMany
             const newArr = []
             oldArr.forEach((item, index) => {
                 if (index === parseInt(this.props.match.params.id)) {
-                    newArr.push({ ...page1Obj, ...page2Obj, ...page3Obj, name: nameSoup })
+                    newArr.push({ ...page1Obj, ...page2Obj, ...page3Obj, name: nameSoup, howMany: howManySoups })
                 } else {
                     newArr.push(oldArr[index])
                 }
             });
-            console.log(newArr);
             localStorage.setItem('cart', JSON.stringify(newArr))
             this.props.ChangeCart(newArr)
             this.props.history.push(SHOPPING_CART)
@@ -213,7 +224,7 @@ class ChangeSoup extends Component {
                         </STYLED.StepsDiv>
                     </STYLED.ProgressTotalDiv>
                     <STYLED.DivButton>
-                        {whichPage < 2 ? <STYLED.BackButton to={MENUE}>Back</STYLED.BackButton> : <STYLED.BackButton as="button" onClick={this.onBackPage}>Back</STYLED.BackButton>}
+                        {whichPage < 2 ? <STYLED.BackButton to={MENUE}>Tillbaka</STYLED.BackButton> : <STYLED.BackButton as="button" onClick={this.onBackPage}>Tillbaka</STYLED.BackButton>}
                         {whichPage < 3 ? <STYLED.SubmitButton onClick={this.onForwardPage}>Nästa</STYLED.SubmitButton> : <STYLED.SubmitButton onClick={this.onSubmitAll} >Nästa</STYLED.SubmitButton>}
                     </STYLED.DivButton>
                 </STYLED.ProgressDivButton>

@@ -15,8 +15,8 @@ const LandingPage = () => {
                     <STYLED.ArrowDiv>
                         <Arrow />
                     </STYLED.ArrowDiv>
-                    <STYLED.LargeTitle>Välkommen</STYLED.LargeTitle>
-                    <STYLED.LargeText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</STYLED.LargeText>
+                    <STYLED.LargeTitle>Hej</STYLED.LargeTitle>
+                    <STYLED.LargeText>Väkommen till Online Soup Delivery Mockup projekt där du kan välja Soppa och anpassa den och tillslut kan du skicka till dig själv eller till dina vänner.</STYLED.LargeText>
                     <STYLED.ButtonLink to={ROUTE.MENUE}>Till Sopporna</STYLED.ButtonLink>
                 </STYLED.RightSide>
                 <STYLED.LargeBackGroundImg />

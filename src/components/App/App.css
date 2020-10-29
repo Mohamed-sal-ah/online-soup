@@ -10,6 +10,14 @@
    src: url("../../fonts/Sansita-Bold.ttf"); 
    font-family: Sansita-Bold;
 }
+@font-face{
+   src: url("../../fonts/Montserrat-Regular.ttf"); 
+   font-family: Montserrat;
+}
+@font-face{
+   src: url("../../fonts/Montserrat-SemiBold.ttf"); 
+   font-family: Montserrat-Bold;
+}
 
 .page {
     position: absolute;

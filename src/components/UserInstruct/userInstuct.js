@@ -16,18 +16,21 @@ export class UserInstructPage extends Component {
     }
     componentDidMount() {
         const localOrder = JSON.parse(localStorage.getItem('order'))
-        console.log(localOrder);
         if (localOrder === null) {
+            // no order in localstorage
             this.props.history.push(MENUE)
         } else {
+            // has order in localstorage
             this.props.LoadOrder(localOrder)
             this.setState({ loading: true, allState: localOrder })
         }
     }
     onChangeText = e => {
+        // change text
         this.setState({ [e.target.name]: e.target.value });
     }
-    onAdressSubmit = () => {
+    onSubmit = () => {
+        // submit all instructions
         const allofState = this.state.allState
         delete allofState.loading
         const userObj = {
@@ -42,20 +45,20 @@ export class UserInstructPage extends Component {
         return (
             <STYLED.FullPage className="page">
                 {loading ? <>
-                    <STYLED.TitlePage>Add instructions</STYLED.TitlePage>
+                    <STYLED.TitlePage>Leverans instruktioner</STYLED.TitlePage>
                     <STYLED.InputDiv>
                         <STYLED.StyledInput type="text"
                             name="instructions"
                             onChange={this.onChangeText}
                             value={instructions}
-                            placeholder="Type in Instuctions"
+                            placeholder="Skriv in instruktioner"
                         />
                         <STYLED.DivButton>
-                            <STYLED.BackButton to={USER_PAY}>Back</STYLED.BackButton>
-                            <STYLED.SubmitButton onClick={this.onAdressSubmit}>Submit Adress</STYLED.SubmitButton>
+                            <STYLED.BackButton to={USER_PAY}>Tillbaka</STYLED.BackButton>
+                            <STYLED.SubmitButton onClick={this.onSubmit}>Vidare</STYLED.SubmitButton>
                         </STYLED.DivButton>
                     </STYLED.InputDiv>
-                </> : <p>Loading...</p>}
+                </> : null}
             </STYLED.FullPage>
         )
     }

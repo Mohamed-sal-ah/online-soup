@@ -12,7 +12,7 @@ const MenueItem = ({ item, id, allCart }) => {
     let numbers = 0;
     allCart.forEach(cart => {
         if (cart.name === item.name) {
-            numbers++
+            numbers = cart.howMany
         }
     });
     const allImgArray = [

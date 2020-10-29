@@ -15,40 +15,43 @@ class AccountPage extends Component {
             firends: '',
             name: '',
             adress: '',
-            firendsKey: ''
+            firendsKey: '',
+            uID: ''
         }
     }
     componentDidMount() {
-        console.log(this.props.userAuth);
         const user = this.props.userAuth
         if (user === null) {
+            // Has not logged in
             this.props.history.push(LANDING)
         }
-        console.log(user);
+        // user has logged in
+        this.setState({ uID: user.userID })
         this.props.firebase.userFirends(user.userID).on('value', snaphot => {
             const dbValues = snaphot.val()
-            console.log(dbValues);
             if (dbValues !== null) {
+                // has dbValues
                 this.setState({ loading: true, firends: [...Object.values(dbValues)], firendsKey: [...Object.keys(dbValues)] })
             } else {
+                // no dbValues
                 this.setState({ loading: true, firends: [] })
             }
         })
 
     }
     onChangeText = e => {
+        // change input text
         const valueText = e.target.value
         this.setState({ [`${e.target.name}`]: valueText })
     }
     DeleteFriend = keyID => {
+        // delete Friend
         const allFriends = this.state.firends
         const allKeys = this.state.firendsKey
         const user = this.props.userAuth
-        debugger
         allFriends.splice(keyID, 1)
         allKeys.splice(keyID, 1)
         if (allFriends.length <= 0 || allKeys.length <= 0) {
-            console.log(allFriends);
             this.props.firebase.userFirends(user.userID).set({})
         } else {
             const newObjArr = []
@@ -59,11 +62,16 @@ class AccountPage extends Component {
                     }
                 })
             })
-            this.props.firebase.userFirends(user.userID).set(...newObjArr)
+            const newOb = {}
+            Object.values(newObjArr).forEach(item => newOb[`${Object.keys(item)}`] = {
+                ...Object.values(item)[0]
+            })
+            this.props.firebase.userFirends(user.userID).set({ ...newOb })
         }
     }
 
     SubmitAddFriend = e => {
+        // Add friend
         e.preventDefault()
         const user = this.props.userAuth
         const newFirend = {
@@ -74,50 +82,52 @@ class AccountPage extends Component {
             ...newFirend
         })
     }
-
+    componentWillUnmount() {
+        this.props.firebase.userFirends(this.state.uID).off()
+    }
     render() {
         const { loading, firends } = this.state
         return (
             <>
                 {this.props.userAuth !== null ? <>
-                    <STYLED.TitlePage>Account</STYLED.TitlePage>
+                    <STYLED.TitlePage>Konto</STYLED.TitlePage>
                     <HasAdmin />
                     <STYLED.UserInfoAndSignoutButton>
                         <STYLED.UserInfoFlex>
-                            <STYLED.UserInfoText>Username : {this.props.userAuth.username}</STYLED.UserInfoText>
-                            <STYLED.UserInfoText>Email : {this.props.userAuth.email}</STYLED.UserInfoText>
+                            <STYLED.UserInfoText>Användar namn : {this.props.userAuth.username}</STYLED.UserInfoText>
+                            <STYLED.UserInfoText>Epost adress : {this.props.userAuth.email}</STYLED.UserInfoText>
                         </STYLED.UserInfoFlex>
                         <SignOutButton />
                     </STYLED.UserInfoAndSignoutButton>
                     {loading ? <STYLED.FormAndULDiv>
-                        <STYLED.FormTitle>Add friend</STYLED.FormTitle>
+                        <STYLED.FormTitle>Lägg till vän</STYLED.FormTitle>
                         <STYLED.StyledForm onSubmit={this.SubmitAddFriend}>
                             <STYLED.InputFlex>
                                 <STYLED.InputDiv>
-                                    <STYLED.StyledInput type="text" onChange={this.onChangeText} name="name" placeholder="Type In Name" />
+                                    <STYLED.StyledInput type="text" onChange={this.onChangeText} name="name" placeholder="Skriv in namn" />
                                 </STYLED.InputDiv>
                                 <STYLED.InputDiv>
-                                    <STYLED.StyledInput type="text" onChange={this.onChangeText} name="adress" placeholder="Type In Adress" />
+                                    <STYLED.StyledInput type="text" onChange={this.onChangeText} name="adress" placeholder="Skriv in adress" />
                                 </STYLED.InputDiv>
                             </STYLED.InputFlex>
-                            <STYLED.SubmitInput>Submit</STYLED.SubmitInput>
+                            <STYLED.SubmitInput>Sicka in</STYLED.SubmitInput>
                         </STYLED.StyledForm>
                         <STYLED.FriendsUL>
                             {firends.map((item, key) => (
                                 <STYLED.ItemUL key={key} >
                                     <STYLED.AdressAndTextDiv>
-                                        <STYLED.SmallInfoText>Name : {item.name}</STYLED.SmallInfoText>
+                                        <STYLED.SmallInfoText>Namn : {item.name}</STYLED.SmallInfoText>
                                         <STYLED.SmallInfoText>Adress : {item.adress}</STYLED.SmallInfoText>
                                     </STYLED.AdressAndTextDiv>
-                                    <STYLED.DeleteButton onClick={() => this.DeleteFriend(key)}>Delete Friend</STYLED.DeleteButton>
+                                    <STYLED.DeleteButton onClick={() => this.DeleteFriend(key)}>Ta bort vän</STYLED.DeleteButton>
                                 </STYLED.ItemUL>
                             ))}
                         </STYLED.FriendsUL>
-                    </STYLED.FormAndULDiv> : <p>Loading</p>}
+                    </STYLED.FormAndULDiv> : null}
                 </> : null}
 
                 <STYLED.DivButton>
-                    <STYLED.BackButton to={USER_PAY}>Back</STYLED.BackButton>
+                    <STYLED.BackButton to={USER_PAY}>Tillbaka</STYLED.BackButton>
                 </STYLED.DivButton>
             </>
         )
@@ -136,7 +146,7 @@ const HasAdmin = ({ authUser }) => (
                         </>
                         : null}
                 </>
-                : <p>Loading...</p>
+                : null
 
         }
     </AuthUserContext.Consumer>

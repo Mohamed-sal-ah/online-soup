@@ -6,7 +6,7 @@ const ShoppingCart = ({ authUser }) => {
         <AuthUserContext.Consumer>
             { authUser =>
                 authUser !== 'loading' ?
-                    <ShoppingCartPage /> : <p>Loading..</p>
+                    <ShoppingCartPage /> : null
             }
 
         </AuthUserContext.Consumer>

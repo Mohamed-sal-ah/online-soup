@@ -17,9 +17,7 @@ const withAuthentication = Component => {
             };
         }
         componentDidMount() {
-            console.log(this.props);
             if (this.props.userOnAuth === "") {
-                console.log('redux not loaded');
                 this.listener = this.props.firebase.onAuthUserListener(
                     authUser => {
                         this.props.LoggIn(authUser)
@@ -30,8 +28,6 @@ const withAuthentication = Component => {
                         this.setState({ authUser: null });
                     },
                 );
-                const loaded = !this.state.loading
-                this.setState({ loading: loaded })
             } else {
                 this.setState({ authUser: this.props.userOnAuth })
             }

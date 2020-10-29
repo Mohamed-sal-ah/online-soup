@@ -23,6 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 example.json
-feedback.txt
+/ux
 feedbackAnswer.txt
 /src/components/Firebase/firebase.js

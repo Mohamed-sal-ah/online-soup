@@ -10,7 +10,6 @@ class Page2 extends Component {
     }
     componentDidMount() {
         const allInfo = this.props.pageValues
-        console.log(allInfo);
         this.setState({ loading: true, ...allInfo })
     }
 
@@ -85,7 +84,6 @@ class Page2 extends Component {
             accessories,
             drinks
         } = this.state
-        console.log(loading);
         return (
             <>
                 {loading ? <>
@@ -183,7 +181,7 @@ class Page2 extends Component {
                             </STYLED.PriceSummaryDiv>
                         </STYLED.Page2SectionTitleOptionDiv>
                     </STYLED.Page2TitleSecions >
-                </> : <p>Loading...</p>}
+                </> : null}
 
             </>
         )

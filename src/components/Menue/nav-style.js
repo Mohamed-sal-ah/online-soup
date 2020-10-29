@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { ReactComponent as ShoppingCart } from '../../icons/shopping-cart.svg'
 import { ReactComponent as AccountLogo } from '../../icons/account.svg'
 
@@ -47,9 +47,21 @@ width:60px;
 height:60px;
 `
 
+const appearShoppingCart = keyframes`
+from{
+    opacity: 0;
+}
+to{
+    opacity: 1;
+}
+`
+
 export const ShoppingCartLink = styled(Link)`
 color: black;
+opacity:0;
 text-decoration: none;
+ animation: ${appearShoppingCart} 1s linear 2s forwards;
+
 `
 
 export const ShoppingCartDiv = styled.div`

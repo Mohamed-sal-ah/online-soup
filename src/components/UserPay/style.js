@@ -25,7 +25,8 @@ width:100%;
 display:flex;
 justify-content:flex-start;
 flex-direction:column;
-padding:0;
+align-items:center;
+padding:20px 0;
 margin:0;
 & li:first-of-type{
    border-top-width: 2px;
@@ -39,9 +40,19 @@ export const ItemUL = styled.li`
 display:flex; 
 flex-direction:column;
 justify-content:space-between;
+background-color:#FFFFFF;
 border-top:1px solid #CACACA;
 border-bottom: 1px solid #CACACA;
+border-left:2px solid #CACACA;
+border-right:2px solid #CACACA;
 padding: 10px;
+box-sizing:border-box;
+width:700px;
+@media (max-width: 750px) { 
+  width:100%;
+border-left:none;
+border-right:none;
+}
 `
 
 export const PriceAndNameDiv = styled.div`
@@ -103,6 +114,9 @@ border:none;
 padding:0;
 margin:0;
 cursor:pointer;
+&:focus{
+   outline:none;
+}
 `
 export const SendWithoutMessageButtton = styled.button`
 font-family :  "Sansita";
@@ -118,9 +132,11 @@ export const SubmitInput = styled.button`
 font-family :  "Sansita";
 text-decoration:none;
 font-size:17px;
-background-color: #FFFFFF;
+background-color: #FFA070;
 border:none;
 cursor:pointer;
+padding: 10px;
+color:#FFFFFF;
 `
 
 export const InputDiv = styled.div`
@@ -152,8 +168,12 @@ font-size:17px;
 export const DivButton = styled.div`
 width:100%;
 display:flex;
-background-color: #FFA070;
 justify-content:center;
+margin-bottom: 20px;
+@media (max-width: 750px) {
+   background-color: #FFA070;
+   margin:0;
+}
 `
 
 export const SendButton = styled.button`
@@ -161,18 +181,23 @@ cursor:pointer;
 padding: 20px 5vw;
 border: none;
 letter-spacing:0;
-border-left:4px solid #FFFFFF;
-border-right:4px solid #FFFFFF;
 font-size: 25px;
+border-radius: 20px;
 font-family :  "Sansita";
 box-shadow:none;
 background-color :#FFA070;
 text-decoration:none;
 text-align:center;
 color: #FFFFFF;
-width:70%;
+width:300px;
 &:focus{
    outline:none;
+}
+@media (max-width: 750px) {
+width:70%;
+border-radius:0;
+border-left:4px solid #FFFFFF;
+border-right:4px solid #FFFFFF;
 }
 `
 
@@ -212,6 +237,7 @@ display:flex;
 flex-direction:row;
 justify-content:space-between;
 align-items:center;
+padding: 2px;
 border: 2px solid #FFA070;
 `
 

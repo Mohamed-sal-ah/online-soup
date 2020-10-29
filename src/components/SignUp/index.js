@@ -20,7 +20,7 @@ const INITIAL_STATE = {
 
 const SignUpPage = () => {
     return (<STYLED.FullPage className="page">
-        <STYLED.TitlePage>SignUp</STYLED.TitlePage>
+        <STYLED.TitlePage>Skapa Konto</STYLED.TitlePage>
         <SignUpForm />
     </STYLED.FullPage>);
 }
@@ -59,11 +59,9 @@ class SignUpFormBase extends Component {
         event.preventDefault();
     }
     onChange = event => {
+        // on change text
         this.setState({ [event.target.name]: event.target.value });
     };
-    onChangeCheckbox = event => {
-        this.setState({ [event.target.name]: event.target.checked })
-    }
     render() {
         const {
             username,
@@ -90,47 +88,47 @@ class SignUpFormBase extends Component {
                         value={username}
                         onChange={this.onChange}
                         type="text"
-                        placeholder="Full Name"
+                        placeholder="Fullnamn"
                     />
                     <STYLED.StyledInput
                         name="email"
                         value={email}
                         onChange={this.onChange}
                         type="text"
-                        placeholder="Email Address"
+                        placeholder="Epost address"
                     />
                     <STYLED.StyledInput
                         name="adress"
                         value={adress}
                         onChange={this.onChange}
                         type="adress"
-                        placeholder="Home Adress"
+                        placeholder="Hem adress"
                     />
                     <STYLED.StyledInput
                         name="passwordOne"
                         value={passwordOne}
                         onChange={this.onChange}
                         type="password"
-                        placeholder="Password"
+                        placeholder="Lösenord"
                     />
                     <STYLED.StyledInput
                         name="passwordTwo"
                         value={passwordTwo}
                         onChange={this.onChange}
                         type="password"
-                        placeholder="Confirm Password"
+                        placeholder="Bekräfta lösenord"
                     />
                     <STYLED.StyledInput type="text"
                         name="phone"
                         onChange={this.onChange}
                         value={phone}
-                        placeholder="Type in Phone"
+                        placeholder="Skriv in telefon siffror"
                     />
                 </STYLED.InputDiv>
                 <STYLED.DivButton>
-                    <STYLED.BackButton to={ROUTES.USER_STATUS}>Back</STYLED.BackButton>
+                    <STYLED.BackButton to={ROUTES.USER_STATUS}>Tillbaka</STYLED.BackButton>
                     <STYLED.SubmitButton disabled={isInvalid} type="submit">
-                        Sign Up
+                        Skapa Konto
                 </STYLED.SubmitButton>
                 </STYLED.DivButton>
 

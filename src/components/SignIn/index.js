@@ -26,6 +26,7 @@ class SignInFormBase extends Component {
         this.state = { ...INITIAL_STATE };
     }
     onSubmit = event => {
+        // submit sign in
         const { email, password } = this.state;
         this.props.firebase
             .doSignInWithEmailAndPassword(email, password).then(() => {
@@ -39,6 +40,7 @@ class SignInFormBase extends Component {
 
     };
     onChange = event => {
+        // on chnage text
         this.setState({ [event.target.name]: event.target.value });
     };
     render() {
@@ -46,7 +48,7 @@ class SignInFormBase extends Component {
         const isInvalid = password === '' || email === '';
         return (
             <>
-                <STYLED.TitlePage>Sign in your account</STYLED.TitlePage>
+                <STYLED.TitlePage>Logga in</STYLED.TitlePage>
                 <STYLED.FormStyled onSubmit={this.onSubmit}>
                     <STYLED.InputDiv>
 
@@ -55,21 +57,21 @@ class SignInFormBase extends Component {
                             value={email}
                             onChange={this.onChange}
                             type="text"
-                            placeholder="Email Address"
+                            placeholder="Epost address"
                         />
                         <STYLED.StyledInput
                             name="password"
                             value={password}
                             onChange={this.onChange}
                             type="password"
-                            placeholder="Password"
+                            placeholder="Lösenord"
                         />
                     </STYLED.InputDiv>
                     {error && <p>{error.message}</p>}
                     <STYLED.DivButton>
-                        <STYLED.BackButton to={ROUTES.USER_STATUS}>Back</STYLED.BackButton>
+                        <STYLED.BackButton to={ROUTES.USER_STATUS}>Tillbaka</STYLED.BackButton>
                         <STYLED.SubmitButton disabled={isInvalid} type="submit">
-                            Sign In
+                            Logga in
                         </STYLED.SubmitButton>
                     </STYLED.DivButton>
                 </STYLED.FormStyled>

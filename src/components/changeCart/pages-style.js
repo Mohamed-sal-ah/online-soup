@@ -8,7 +8,6 @@ height: 625px;
 display:flex;
 flex-direction:column;
 justify-content:flex-start;
-width:100%;
 & div:first-of-type{
    border-top-width:2px;
 }
@@ -19,6 +18,12 @@ width:100%;
 
 export const Page1NameOptionDiv = styled.div`
 background-color:#FFFFFF;
+border-left: 2px solid  #CACACA; 
+border-right: 2px solid  #CACACA;  
+@media (max-width: 750px) { 
+border-left:none;
+border-right:none;
+}
 border-top:solid #CACACA; 
 border-bottom:solid #CACACA;
 border-top-width: 1px;
@@ -90,13 +95,18 @@ export const Page2TitleSecions = styled.section`
 display:flex;
 flex-direction:column;
 justify-content:flex-start;
-width:100%;
 height: 625px;
 `
 
 
 export const Page2NameOptionDiv = styled.div`
 background-color:#FFFFFF;
+border-left: 2px solid  #CACACA; 
+border-right: 2px solid  #CACACA;  
+@media (max-width: 750px) { 
+border-left:none;
+border-right:none;
+}
 border-top:solid #CACACA; 
 border-bottom:solid #CACACA;
 border-top-width: 1px;
@@ -187,6 +197,12 @@ text-align:center;
 
 export const PriceSummaryDiv = styled.div`
 background-color:#FFFFFF;
+border-left: 2px solid  #CACACA; 
+border-right: 2px solid  #CACACA;  
+@media (max-width: 750px) { 
+border-left:none;
+border-right:none;
+}
 border-top: 2px solid #CACACA;
 border-bottom: 2px solid #CACACA;
 display:flex;
@@ -208,7 +224,6 @@ height: 625px;
 display:flex;
 flex-direction:column;
 justify-content:flex-start;
-width:100%;
 & div:first-of-type{
    border-top-width:2px;
 }
@@ -219,6 +234,12 @@ width:100%;
 
 export const Page3NameRadioButtonDiv = styled.div`
 background-color:#FFFFFF;
+border-left: 2px solid  #CACACA; 
+border-right: 2px solid  #CACACA;  
+@media (max-width: 750px) { 
+border-left:none;
+border-right:none;
+}
 border-top:solid #CACACA; 
 border-bottom:solid #CACACA;
 border-top-width: 1px;

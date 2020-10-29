@@ -5,10 +5,14 @@ import './index.css';
 
 import * as serviceWorker from './serviceWorker';
 
-import Firebase, { FirebaseContext } from './components/Firebase';
 import { Provider } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom';
 import store from './store'
+// import store and redux Provider
+import Firebase, { FirebaseContext } from './components/Firebase';
+// import Firebase and FirebaseContext
+import { BrowserRouter, Route } from 'react-router-dom';
+// import BrowserRouter and Route
+
 ReactDOM.render(
   <Provider store={store}>
     <FirebaseContext.Provider value={new Firebase()}>

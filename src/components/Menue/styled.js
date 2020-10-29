@@ -13,10 +13,19 @@ background-color:#FFFFFF;
 `
 
 export const MenueListUL = styled.ul`
+list-style-type: none;
+width:100%;
+padding:0;
+margin-top:20px;
+margin-bottom:0;
+display:grid;
+grid-template-columns:1fr 1fr;
+grid-gap:10px;
+@media (max-width: 750px) { 
+margin:0;
 padding:0;
 display:flex;
 flex-direction:column;
 list-style-type:none;
-width:100%;
-margin:0;
+}
 `

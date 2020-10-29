@@ -18,7 +18,6 @@ export class CardPay extends Component {
     }
     componentDidMount() {
         const localOrder = JSON.parse(localStorage.getItem('order'))
-        console.log(localOrder);
         if (localOrder === null) {
             this.props.history.push(MENUE)
         } else {
@@ -29,17 +28,18 @@ export class CardPay extends Component {
 
 
     CardSubmit = () => {
+        // submit card info
         const allState = this.state.allPayInfo
         const payMethod = "card"
         const guest = JSON.parse(localStorage.getItem('guest'))
         if (guest !== null) {
             this.props.firebase.orders().push({
                 date: this.props.firebase.serverValue.TIMESTAMP,
-                userID: guest.userID,
                 payment: payMethod,
                 email: guest.email,
                 instructions: guest.instructions,
                 phone: guest.phone,
+                userID: guest.userID,
                 username: guest.username,
                 delivery: {
                     adress: guest.adress
@@ -69,7 +69,6 @@ export class CardPay extends Component {
             })
             this.props.firebase.userOrder(this.props.user.userID).push(keyID.key)
         }
-        console.log(payMethod);
         localStorage.removeItem('cart')
         this.props.history.push(DELIVERY_STATUS)
     }
@@ -82,7 +81,6 @@ export class CardPay extends Component {
                     <STYLED.TitlePage>Fyll kort</STYLED.TitlePage>
                     <STYLED.FormStyled>
                         <STYLED.InputDiv>
-
                             <STYLED.StyledInput
                                 name="cardnumbers"
                                 type="text"
@@ -92,13 +90,13 @@ export class CardPay extends Component {
                             <STYLED.StyledInput
                                 name="firstname"
                                 type="text"
-                                placeholder="First Name"
+                                placeholder="Förnamn"
                                 disabled={true}
                             />
                             <STYLED.StyledInput
                                 name="lastname"
                                 type="adress"
-                                placeholder="Last Name"
+                                placeholder="Efternamn"
                                 disabled={true}
                             />
                             <STYLED.StyledInput
@@ -115,9 +113,9 @@ export class CardPay extends Component {
                             />
                         </STYLED.InputDiv>
                         <STYLED.DivButton>
-                            <STYLED.BackButton to={PAY_PAGE}>Back</STYLED.BackButton>
+                            <STYLED.BackButton to={PAY_PAGE}>Tillbaka</STYLED.BackButton>
                             <STYLED.SubmitButton onClick={this.CardSubmit}>
-                                Confirm
+                                Vidare
                 </STYLED.SubmitButton>
                         </STYLED.DivButton>
                     </STYLED.FormStyled>

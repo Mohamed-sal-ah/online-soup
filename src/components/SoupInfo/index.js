@@ -27,23 +27,21 @@ class SoupInfo extends Component {
         }
     }
     componentDidMount() {
-        console.log(this.props);
-        const { match: { params } } = this.props;
-        console.log(params.id);
         const id = parseInt(this.props.match.params.id)
         if (isNaN(id) || id < 0) {
+            // non number
             this.setState({ loading: true, info: null })
             this.props.history.push(ROUTE.MENUE)
         } else if (this.props.menueList === "") {
-
+            // no redux menue filter
             this.props.firebase.menueList().on("value", snapshot => {
                 const menueList = snapshot.val()
-                // this.setState({ menue: menueList, loading: true })
                 this.props.FetchMenue(menueList)
                 const filterMenue = this.props.menueList[id]
                 this.setState({ loading: true, info: filterMenue, id })
             })
         } else {
+            // redux menue filter
             const item = this.props.menueList[id]
             this.setState({ loading: true, info: item, id })
         }
@@ -63,10 +61,47 @@ class SoupInfo extends Component {
         return (
             <STYLED.FullPage className="page">
                 {loading ?
-                    <STYLED.BackGroundImage
-                        BackImage={`url(${allImgArray[id]})  center no-repeat`}
-                    >
-                        <STYLED.BackgroundOpacity>
+                    <>
+                        <STYLED.BackGroundImage
+                            BackImage={`url(${allImgArray[id]}) ${id === 5 ? 'bottom' : 'center'} no-repeat`}
+                        >
+                            <STYLED.BackgroundOpacity>
+                                {info !== null ?
+                                    <>
+                                        <STYLED.TitleAndListDiv>
+                                            <STYLED.PriceAndNameDiv>
+                                                <STYLED.TitleHeader>{info.name}</STYLED.TitleHeader>
+                                                <STYLED.PriceHeader>{info.price}:-</STYLED.PriceHeader>
+                                            </STYLED.PriceAndNameDiv>
+                                            <STYLED.ListDiv>
+                                                <STYLED.TitleList>Ingredienser</STYLED.TitleList>
+                                                <STYLED.ListUL>
+                                                    {info.ingredient.map((item, key) => (
+                                                        <STYLED.ListText key={key}>{item}</STYLED.ListText>
+                                                    ))}
+                                                </STYLED.ListUL>
+                                                <STYLED.TitleList>Energi</STYLED.TitleList>
+                                                <STYLED.ListUL>
+                                                    <STYLED.ListText>kolhydrater: {info.nutritionalValue.carbohydrates}</STYLED.ListText>
+                                                    <STYLED.ListText>Fet: {info.nutritionalValue.fat}</STYLED.ListText>
+                                                    <STYLED.ListText>Salt: {info.nutritionalValue.salt}</STYLED.ListText>
+                                                    <STYLED.ListText>Protein: {info.nutritionalValue.protein}</STYLED.ListText>
+                                                    <STYLED.ListText>Energi per soppa: {info.nutritionalValue.energy}</STYLED.ListText>
+                                                </STYLED.ListUL>
+                                            </STYLED.ListDiv>
+                                        </STYLED.TitleAndListDiv>
+                                    </> : null}
+                                <STYLED.LinkItemDiv>
+                                    <STYLED.BackLink to={ROUTE.MENUE}>
+                                        <STYLED.BackArrow />
+                                    </STYLED.BackLink>
+                                    <STYLED.AddLink to={`/select/${id}`}>
+                                        <STYLED.AddSymbol />
+                                    </STYLED.AddLink>
+                                </STYLED.LinkItemDiv>
+                            </STYLED.BackgroundOpacity>
+                        </STYLED.BackGroundImage>
+                        <STYLED.DesktopSection>
                             {info !== null ?
                                 <>
                                     <STYLED.TitleAndListDiv>
@@ -74,24 +109,28 @@ class SoupInfo extends Component {
                                             <STYLED.TitleHeader>{info.name}</STYLED.TitleHeader>
                                             <STYLED.PriceHeader>{info.price}:-</STYLED.PriceHeader>
                                         </STYLED.PriceAndNameDiv>
-                                        <STYLED.ListDiv>
-                                            <STYLED.TitleList>Ingirenser</STYLED.TitleList>
-                                            <STYLED.ListUL>
-                                                {info.ingredient.map((item, key) => (
-                                                    <STYLED.ListText key={key}>{item}</STYLED.ListText>
-                                                ))}
-                                            </STYLED.ListUL>
-                                            <STYLED.TitleList>Energi</STYLED.TitleList>
-                                            <STYLED.ListUL>
-                                                <STYLED.ListText>{info.nutritionalValue.carbohydrates}</STYLED.ListText>
-                                                <STYLED.ListText>{info.nutritionalValue.fat}</STYLED.ListText>
-                                                <STYLED.ListText>{info.nutritionalValue.salt}</STYLED.ListText>
-                                                <STYLED.ListText>{info.nutritionalValue.protein}</STYLED.ListText>
-                                                <STYLED.ListText>{info.nutritionalValue.energy}</STYLED.ListText>
-                                            </STYLED.ListUL>
-                                        </STYLED.ListDiv>
+                                        <STYLED.DestktopListDiv>
+                                            <STYLED.DesktopListAndTitle>
+                                                <STYLED.DesktopTitleList>Ingredienser</STYLED.DesktopTitleList>
+                                                <STYLED.ListUL>
+                                                    {info.ingredient.map((item, key) => (
+                                                        <STYLED.ListText key={key}>{item}</STYLED.ListText>
+                                                    ))}
+                                                </STYLED.ListUL>
+                                            </STYLED.DesktopListAndTitle>
+                                            <STYLED.DesktopListAndTitle>
+                                                <STYLED.DesktopTitleList>Energi</STYLED.DesktopTitleList>
+                                                <STYLED.ListUL>
+                                                    <STYLED.ListText>kolhydrater: {info.nutritionalValue.carbohydrates}</STYLED.ListText>
+                                                    <STYLED.ListText>Fet: {info.nutritionalValue.fat}</STYLED.ListText>
+                                                    <STYLED.ListText>Salt: {info.nutritionalValue.salt}</STYLED.ListText>
+                                                    <STYLED.ListText>Protein: {info.nutritionalValue.protein}</STYLED.ListText>
+                                                    <STYLED.ListText>Energi per soppa: {info.nutritionalValue.energy}</STYLED.ListText>
+                                                </STYLED.ListUL>
+                                            </STYLED.DesktopListAndTitle>
+                                        </STYLED.DestktopListDiv>
                                     </STYLED.TitleAndListDiv>
-                                </> : <p>not found</p>}
+                                </> : null}
                             <STYLED.LinkItemDiv>
                                 <STYLED.BackLink to={ROUTE.MENUE}>
                                     <STYLED.BackArrow />
@@ -100,9 +139,9 @@ class SoupInfo extends Component {
                                     <STYLED.AddSymbol />
                                 </STYLED.AddLink>
                             </STYLED.LinkItemDiv>
-                        </STYLED.BackgroundOpacity>
-                    </STYLED.BackGroundImage>
-                    : <p>Loading</p>}
+                        </STYLED.DesktopSection>
+                    </>
+                    : null}
             </STYLED.FullPage>
         )
     }

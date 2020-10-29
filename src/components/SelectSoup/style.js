@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { motion } from 'framer-motion'
 export const FullPage = styled.div`
 height:100%;
+
 overflow:auto;
 margin: 0;
 z-index: -2;
@@ -33,7 +34,6 @@ height:100%;
 
 export const BackButton = styled(Link)`
 font-family :  "Sansita";
-padding: 20px 0;
 background-color: #FFA070;
 border: none;
 border-right:2px solid #FFFFFF;
@@ -46,11 +46,25 @@ text-align:center;
 export const DivButton = styled.div`
 width:100%;
 display:flex;
-background-color: #FFA070;
-justify-content:space-between;
+justify-content:space-around;
 height:fit-content;
-& > * {
-    width:100%;
+margin-bottom: 20px;
+  & > * {
+    width: fit-content;
+    padding: 13px 20px;
+    border-radius: 20px;
+    width:250px;
+  }
+@media (max-width: 750px) { 
+  margin:0;
+  justify-content:space-between;
+  background-color: #FFA070;
+  & > * {
+      padding: 20px 0;
+      height:fit-content;
+      width:100%;
+      border-radius:0;
+  }
 }
 `
 
@@ -130,7 +144,15 @@ export const CompletedCheckMark = styled.span`
 
 export const MotionDiv = styled(motion.div)`
 display:flex;
-flex-direction:row;
 width:100%;
 height:fit-content;
+justify-content:center;
+   & > * {
+    width: 700px;
+   }
+@media (max-width: 750px) { 
+   & > * {
+    width: 100%;
+   }
+}
 `

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 export const FullPage = styled.div`
 height:100%;
+
 overflow:hidden;
 margin: 0;
 z-index: -2;
@@ -25,7 +26,10 @@ display:flex;
 width:100%;
 flex-direction:column;
 height:100%;
-justify-content:space-between;
+justify-content: center;
+@media (max-width:750px){
+   justify-content:space-between;
+}
 `
 
 export const ThreeButtonsDiv = styled.div`
@@ -43,7 +47,7 @@ cursor:pointer;
 text-decoration:none;
 background-color :#FFA070;
 color: #FFFFFF;
-width:70%;
+width:500px;
 box-shadow: 0px 4px 8px -3px rgba(0,0,0,0.75);
 font-size:30px;
 letter-spacing: 0.5px;
@@ -53,6 +57,9 @@ font-family :  "Sansita";
 &:focus{
    outline:none;
 }
+@media (max-width:750px){
+   width:70%;
+}
 `
 
 export const CardLink = styled(Link)`
@@ -60,7 +67,7 @@ border:none;
 text-decoration:none;
 background-color :#FFA070;
 color: #FFFFFF;
-width:70%;
+width:500px;
 box-shadow: 0px 4px 8px -3px rgba(0,0,0,0.75);
 font-size:30px;
 letter-spacing: 0.5px;
@@ -70,6 +77,9 @@ font-family :  "Sansita";
 &:focus{
    outline:none;
 }
+@media (max-width:750px){
+   width:70%;
+}
 `
 
 
@@ -77,25 +87,34 @@ font-family :  "Sansita";
 export const DivButton = styled.div`
 width:100%;
 display:flex;
-background-color: #FFA070;
 justify-content:center;
+margin-bottom: 20px;
+@media (max-width: 750px) {
+   background-color: #FFA070;
+   margin:0;
+}
 `
 
 export const BackButton = styled(Link)`
 padding: 20px 5vw;
 border: none;
 letter-spacing:0;
-border-left:4px solid #FFFFFF;
-border-right:4px solid #FFFFFF;
 font-size: 25px;
+border-radius: 20px;
 font-family :  "Sansita";
 box-shadow:none;
 background-color :#FFA070;
 text-decoration:none;
 text-align:center;
 color: #FFFFFF;
-width:70%;
+width:250px;
 &:focus{
    outline:none;
+}
+@media (max-width: 750px) {
+width:70%;
+border-radius:0;
+border-left:4px solid #FFFFFF;
+border-right:4px solid #FFFFFF;
 }
 `

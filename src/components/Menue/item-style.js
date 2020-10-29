@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { ReactComponent as Info } from '../../icons/info.svg'
 import { ReactComponent as Add } from '../../icons/add.svg'
 import { Link } from "react-router-dom";
 
 export const ListItem = styled.li`
+margin:0;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -11,7 +12,10 @@ background: ${props => props.BackImage};
 background-size: cover;
 height:500px;
 justify-content:space-between;
+width:100%;
+@media (max-width: 750px) { 
 margin: 20px 0;
+}
 `
 
 export const TitlePriceTextDiv = styled.div`
@@ -70,8 +74,18 @@ height:60px;
 width:60px;
 `
 
+const CartNumberAppear = keyframes`
+from{
+    opacity: 0;
+}
+to{
+    opacity: 1;
+}
+`
 export const CartNumbers = styled.h6`
 font-family: 'Sansita';
+opacity:0;
+animation: ${CartNumberAppear} 1s linear 1s forwards;
 margin:0;
 background-color:#417301;
 width:30px;

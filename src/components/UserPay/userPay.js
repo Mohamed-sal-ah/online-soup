@@ -15,8 +15,11 @@ export class UserPayPage extends Component {
         this.state = {
             friends: '',
             allPayInfo: '',
+            name: '',
+            adress: '',
             firendsKey: '',
             loading: false,
+            uID: '',
             message: ''
         }
     }
@@ -26,11 +29,11 @@ export class UserPayPage extends Component {
             this.props.history.push(USER_STATUS)
         } else {
             const localOrder = JSON.parse(localStorage.getItem('order'))
-            console.log(localOrder);
             if (localOrder === null) {
                 this.props.history.push(MENUE)
             } else {
                 this.props.LoadOrder(localOrder)
+                this.setState({ uID: user.userID })
                 this.props.firebase.userFirends(user.userID).on('value', snapshot => {
                     const dbValues = snapshot.val()
                     if (dbValues !== null) {
@@ -44,6 +47,7 @@ export class UserPayPage extends Component {
         }
     }
     userSentPay = () => {
+        // user send
         const allState = this.state.allPayInfo
         localStorage.setItem('order', JSON.stringify({
             username: this.props.user.username,
@@ -52,25 +56,12 @@ export class UserPayPage extends Component {
             },
             ...allState
         }))
-        // const keyID = this.props.firebase.orders().push({
-        //     date: this.props.firebase.serverValue.TIMESTAMP,
-        //     username: this.props.user.username,
-        //     userID: this.props.user.userID,
-        //     delivery: {
-        //         adress: this.props.user.adress,
-        //     },
-        //     ...allState
-        // })
-        // this.props.ClearOrder()
         localStorage.removeItem('cart')
-        // localStorage.removeItem('order')
-        // this.props.firebase.userOrder(this.props.user.userID).push(keyID.key)
         this.props.history.push(USER_INSTRUCTION)
     }
 
     userFriendSentPay = (numID, message) => {
-        console.log(numID);
-        console.log(message);
+        // friend send
         const oneFriend = this.state.friends[numID]
         const friendKey = this.state.firendsKey[numID]
         const allState = this.state.allPayInfo
@@ -84,27 +75,18 @@ export class UserPayPage extends Component {
             },
             ...allState
         }))
-        // console.log(friendKey);
-        // const keyID = this.props.firebase.orders().push({
-        //     date: this.props.firebase.serverValue.TIMESTAMP,
-        //     username: this.props.user.username,
-        //     userID: this.props.user.userID,
-        //     delivery: {
-        //         adress: oneFriend.adress,
-        //         to: oneFriend.name,
-        //         message: message,
-        //         friendID: friendKey
-        //     },
-        //     ...allState
-        // })
-        // this.props.firebase.userOrder(this.props.user.userID).push(keyID.key)
         localStorage.removeItem('cart')
-        // localStorage.removeItem('order')
         this.props.history.push(USER_INSTRUCTION)
     }
+    onChangeText = e => {
+        // on change input
+        const valueText = e.target.value
+        this.setState({ [`${e.target.name}`]: valueText })
+    }
     SubmitAddFriend = e => {
+        // add friend
         e.preventDefault()
-        const user = this.props.userAuth
+        const user = this.props.user
         const newFirend = {
             name: this.state.name,
             adress: this.state.adress
@@ -113,24 +95,27 @@ export class UserPayPage extends Component {
             ...newFirend
         })
     }
+    componentWillUnmount() {
+        this.props.firebase.userFirends(this.state.uID).off()
+    }
 
     render() {
         const { loading, friends } = this.state
         return (
             <>
-                <STYLED.TitlePage>User Pay</STYLED.TitlePage>
+                <STYLED.TitlePage>Användare</STYLED.TitlePage>
+                <STYLED.AccountLink to={ACCOUT_PAGE}>Konto</STYLED.AccountLink>
                 <STYLED.FormTitle>Add friend</STYLED.FormTitle>
                 <STYLED.StyledForm onSubmit={this.SubmitAddFriend}>
-                    <STYLED.AccountLink to={ACCOUT_PAGE}>Account</STYLED.AccountLink>
                     <STYLED.InputFlex>
                         <STYLED.InputDivForm>
-                            <STYLED.StyledInputForm type="text" onChange={this.onChangeText} name="name" placeholder="Type In Name" />
+                            <STYLED.StyledInputForm type="text" onChange={this.onChangeText} name="name" placeholder="Skriv in namn" />
                         </STYLED.InputDivForm>
                         <STYLED.InputDivForm>
-                            <STYLED.StyledInputForm type="text" onChange={this.onChangeText} name="adress" placeholder="Type In Adress" />
+                            <STYLED.StyledInputForm type="text" onChange={this.onChangeText} name="adress" placeholder="Skriv in adress" />
                         </STYLED.InputDivForm>
                     </STYLED.InputFlex>
-                    <STYLED.SubmitInputForm>Submit</STYLED.SubmitInputForm>
+                    <STYLED.SubmitInputForm>Sicka in</STYLED.SubmitInputForm>
                 </STYLED.StyledForm>
                 {loading ?
                     <>
@@ -142,9 +127,9 @@ export class UserPayPage extends Component {
                                     sendOrder={this.userFriendSentPay} />
                             ))}
                         </STYLED.FriendsUL>
-                    </> : <p>Loading</p>}
+                    </> : null}
                 <STYLED.DivButton>
-                    <STYLED.SendButton onClick={this.userSentPay}>Send to your Self</STYLED.SendButton>
+                    <STYLED.SendButton onClick={this.userSentPay}>Sicka till dig själv</STYLED.SendButton>
                 </STYLED.DivButton>
             </>
         )

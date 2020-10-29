@@ -26,6 +26,7 @@ height:100%;
 overflow:hidden;
 margin: 0;
 z-index: -2;
+@media (max-width: 750px) { 
 &.page {
     opacity:1;
 }
@@ -38,6 +39,7 @@ z-index: -2;
 &.fade-enter-active{
     transform : translateY(-100%);
     animation: ${animteTranlateDown} 1s linear 1s forwards;
+}
 }
 `
 
@@ -197,11 +199,9 @@ padding: 0 2rem;
 }
 `
 export const LargeText = styled.p`
-letter-spacing: 0.5px;
 text-align: left;
-font-family :  "Sansita";
+font-family :  "Montserrat";
 font-size:17px;
-font-style: italic;
 padding: 0 2rem;
 @media (max-width: 750px) { 
     display:none;

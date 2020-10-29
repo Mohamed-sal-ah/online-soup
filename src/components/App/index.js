@@ -2,12 +2,13 @@ import React from 'react';
 
 import { Switch, Route } from 'react-router-dom';
 import './App.css'
+import { withAuthentication } from '../Session';
+import * as ROUTES from '../../constants/routes'
+// import Routes
 import LandingPage from '../Landing';
 import SignUpPage from '../SignUp';
 import SignInPage from '../SignIn';
 import Admin from '../Admin';
-import * as ROUTES from '../../constants/routes'
-import { withAuthentication } from '../Session';
 import MenuePage from '../Menue';
 import SoupInfo from '../SoupInfo';
 import SelectSoup from '../SelectSoup';
@@ -19,12 +20,13 @@ import PayPage from '../Pay';
 import DeliveryStatus from '../DeliveryStatus';
 import Account from '../Account';
 import UserPay from '../UserPay';
+import UserInstruct from '../UserInstruct';
+import CardPay from '../CardPay';
 import {
     CSSTransition,
     TransitionGroup,
 } from 'react-transition-group';
-import CardPay from '../CardPay';
-import UserInstruct from '../UserInstruct';
+// import CSSTransition and TransitionGroup
 
 const App = () => {
     return (<>
@@ -32,7 +34,7 @@ const App = () => {
             <TransitionGroup>
                 <CSSTransition
                     key={location.key}
-                    timeout={2500}
+                    timeout={2000}
                     classNames="fade"
                 >
                     <Switch location={location}>

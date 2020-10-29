@@ -38,52 +38,59 @@ class SelectSoup extends Component {
         }
     }
     componentDidMount() {
-        const { match: { params } } = this.props;
-        console.log(params.id);
         const allCart = JSON.parse(localStorage.getItem('cart'))
         if (allCart === null) {
+            // no items in allCart
             this.setState({ localArr: [] })
         } else {
+            // has items in allCart
             this.setState({ localArr: allCart })
         }
-        console.log(allCart);
 
         const id = parseInt(this.props.match.params.id)
         if (isNaN(id) || id < 0) {
+            // has non number
             this.props.history.push(MENUE)
             return
         } else if (this.props.menueList === "") {
+            // redux not loaded
             this.props.firebase.menueList().on("value", snapshot => {
+                // fetch and filter menue
                 const menueList = snapshot.val()
                 this.props.FetchMenue(menueList)
                 const filterMenue = this.props.menueList[id]
                 this.setState({ loading: true, selectedSoup: filterMenue, id })
             })
         } else {
+            // filter menue redux
             const item = this.props.menueList[id]
             this.setState({ loading: true, selectedSoup: item, id })
         }
     }
     onBackPage = () => {
+        // step backward
         const progress = this.state.progressPage - 1
         const opacity = !this.state.pageOpacity
         this.setState({ pageOpacity: opacity, progressPage: progress })
         setTimeout(() => {
+            // page change animation
             const newState = this.state.whichPage - 1
             this.setState({ whichPage: newState, pageOpacity: true })
         }, 550)
     }
     onForwardPage = () => {
+        // step forward
         const progress = this.state.progressPage + 1
         const opacity = !this.state.pageOpacity
         this.setState({ pageOpacity: opacity, progressPage: progress })
         setTimeout(() => {
+            // page change animation
             const newState = this.state.whichPage + 1
             this.setState({ whichPage: newState, pageOpacity: true })
         }, 550)
     }
     onChangePage = (pageNumb, info) => {
-        console.log(info);
+        // input all page value in page state 
         this.setState({ [`page${pageNumb}`]: info })
     }
     onSubmitAll = () => {
@@ -91,7 +98,7 @@ class SelectSoup extends Component {
         setTimeout(() => {
             // animtion for add add item for cart in menue page
             const addName = this.state.selectedSoup.name
-            const allOneCart = { ...this.state.page1, ...this.state.page2, ...this.state.page3, name: addName }
+            const allOneCart = { ...this.state.page1, ...this.state.page2, ...this.state.page3, name: addName, howMany: 1 }
             this.props.AddToCart(allOneCart)
             const arrayLocal = this.state.localArr
             arrayLocal.push(allOneCart)
@@ -163,7 +170,7 @@ class SelectSoup extends Component {
                         </STYLED.StepsDiv>
                     </STYLED.ProgressTotalDiv>
                     <STYLED.DivButton>
-                        {whichPage < 2 ? <STYLED.BackButton to={MENUE}>Back</STYLED.BackButton> : <STYLED.BackButton as="button" onClick={this.onBackPage}>Back</STYLED.BackButton>}
+                        {whichPage < 2 ? <STYLED.BackButton to={MENUE}>Tillbaka</STYLED.BackButton> : <STYLED.BackButton as="button" onClick={this.onBackPage}>Tillbaka</STYLED.BackButton>}
                         {whichPage < 3 ? <STYLED.SubmitButton onClick={this.onForwardPage}>Nästa</STYLED.SubmitButton> : <STYLED.SubmitButton onClick={this.onSubmitAll} >Nästa</STYLED.SubmitButton>}
                     </STYLED.DivButton>
                 </STYLED.ProgressDivButton>

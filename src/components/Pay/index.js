@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux'
 import { LoadOrder, ClearOrder } from '../../action/orderAction';
 import { withRouter } from "react-router-dom";
-import { CARD_PAY, DELIVERY_STATUS, MENUE, SHOPPING_CART } from '../../constants/routes'
+import { CARD_PAY, DELIVERY_STATUS, MENUE } from '../../constants/routes'
 import * as STYLED from './styled'
 
 export class PayPage extends Component {
@@ -18,7 +18,6 @@ export class PayPage extends Component {
     }
     componentDidMount() {
         const localOrder = JSON.parse(localStorage.getItem('order'))
-        console.log(localOrder);
         if (localOrder === null) {
             this.props.history.push(MENUE)
         } else {
@@ -38,6 +37,7 @@ export class PayPage extends Component {
                 phone: guest.phone,
                 username: guest.username,
                 payment: payMethod,
+                userID: guest.userID,
                 delivery: {
                     adress: guest.adress
                 },
@@ -66,7 +66,6 @@ export class PayPage extends Component {
             })
             this.props.firebase.userOrder(this.props.user.userID).push(keyID.key)
         }
-        console.log(payMethod);
         localStorage.removeItem('cart')
         // localStorage.removeItem('order')
         this.props.history.push(DELIVERY_STATUS)
@@ -77,18 +76,15 @@ export class PayPage extends Component {
         return (
             <STYLED.FullPage className="page">
                 {loaded ? <>
-                    <STYLED.TitlePage>Submit Payment</STYLED.TitlePage>
+                    <STYLED.TitlePage>Välj betalning metod</STYLED.TitlePage>
                     <STYLED.AllButtonDiv>
                         <STYLED.ThreeButtonsDiv>
                             <STYLED.ButtonLinks onClick={this.onSubmitPay} id="swish">Swish</STYLED.ButtonLinks>
                             <STYLED.CardLink to={CARD_PAY}>Kort</STYLED.CardLink>
                             <STYLED.ButtonLinks onClick={this.onSubmitPay} id="card">Klarna</STYLED.ButtonLinks>
                         </STYLED.ThreeButtonsDiv>
-                        <STYLED.DivButton>
-                            <STYLED.BackButton to={SHOPPING_CART}>Back</STYLED.BackButton>
-                        </STYLED.DivButton>
                     </STYLED.AllButtonDiv>
-                </> : <p>Loading...</p>}
+                </> : null}
             </STYLED.FullPage>
         )
     }

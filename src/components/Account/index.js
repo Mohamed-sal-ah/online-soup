@@ -1,6 +1,7 @@
 import React from 'react';
 import { FullPage } from './styled'
 import { AuthUserContext, withAuthorization } from '../Session';
+// import AuthUserContext and withAuthorization 
 import Account from './account';
 
 const AccountPage = () => (
@@ -14,7 +15,7 @@ const AccountPage = () => (
                                 <Account authUser={authUser} />
                             </> : null}
                         </> :
-                        <p>Loading...</p>
+                        null
                     }
 
                 </>

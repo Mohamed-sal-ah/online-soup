@@ -1,5 +1,5 @@
 import { Add_to_Cart, Change_Cart_Content, Load_Cart, Remove_from_Cart, Clear_Cart } from './type'
-
+// Cart action
 export const AddToCart = (data) => dispatch => {
     dispatch({
         type: Add_to_Cart,
