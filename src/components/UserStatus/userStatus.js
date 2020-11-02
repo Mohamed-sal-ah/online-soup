@@ -20,7 +20,7 @@ class UserStatusPage extends Component {
             this.props.history.push(ROUTE.MENUE)
         } else {
             if (this.props.user !== null) {
-                // user is Signed ind
+                // user is logged in
                 this.props.history.push(ROUTE.USER_PAY)
             } else {
                 this.setState({ loading: true })
